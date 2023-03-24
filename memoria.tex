@@ -30,34 +30,28 @@ headsepline, % Uncomment to get a line under the header
 %	INFORMACIÓN DE LA MEMORIA
 %----------------------------------------------------------------------------------------
 
-\thesistitle{Título del trabajo} % El títulos de la memoria, se usa en la carátula y se puede usar el cualquier lugar del documento con el comando \ttitle
+\thesistitle{Diseño e implementación de una central operativa para el control y monitoreo en el material rodante} % El títulos de la memoria, se usa en la carátula y se puede usar el cualquier lugar del documento con el comando \ttitle
 
 % Nombre del posgrado, se usa en la carátula y se puede usar el cualquier lugar del documento con el comando \degreename
-\posgrado{Carrera de Especialización en Sistemas Embebidos} 
-%\posgrado{Carrera de Especialización en Internet de las Cosas} 
-%\posgrado{Carrera de Especialización en Intelegencia Artificial}
-%\posgrado{Maestría en Sistemas Embebidos} 
-%\posgrado{Maestría en Internet de las cosas}
+\posgrado{Carrera de Especialización en Internet de las Cosas} 
 
-\author{Nombre del autor} % Tu nombre, se usa en la carátula y se puede usar el cualquier lugar del documento con el comando \authorname
 
-\director{Nombre del director (pertenencia)} % El nombre del director, se usa en la carátula y se puede usar el cualquier lugar del documento con el comando \dirname
-\codirector{Nombre del codirector (pertenencia)} % El nombre del codirector si lo hubiera, se usa en la carátula y se puede usar el cualquier lugar del documento con el comando \codirname.  Para activar este campo se debe descomentar la opción "codirector" en el comando \documentclass, línea 23.
+\author{Fernando Julio Iglesias} % Tu nombre, se usa en la carátula y se puede usar el cualquier lugar del documento con el comando \authorname
+
+\director{Fernando Lichtschein (FI-UBA)} % El nombre del director, se usa en la carátula y se puede usar el cualquier lugar del documento con el comando \dirname
+
 
 \juradoUNO{Nombre del jurado 1 (pertenencia)} % Nombre y pertenencia del un jurado se usa en la carátula y se puede usar el cualquier lugar del documento con el comando \jur1name
 \juradoDOS{Nombre del jurado 2 (pertenencia)} % Nombre y pertenencia del un jurado se usa en la carátula y se puede usar el cualquier lugar del documento con el comando \jur2name
 \juradoTRES{Nombre del jurado 3 (pertenencia)} % Nombre y pertenencia del un jurado se usa en la carátula y se puede usar el cualquier lugar del documento con el comando \jur3name
 
-%\ciudad{Ciudad Autónoma de Buenos Aires}
-\ciudad{ciudad de Mendoza}
+\ciudad{Ciudad Autónoma de Buenos Aires}
 
-\fechaINICIO{marzo de 2020}
-\fechaFINAL{diciembre de 2020}
-
-
-\keywords{Sistemas embebidos, FIUBA} % Keywords for your thesis, print it elsewhere with \keywordnames
+\fechaINICIO{marzo de 2022}
+\fechaFINAL{agosto de 2023}
 
 
+\keywords{Internet de las Cosas, Sistemas ferroviarios, MQTT/TLS, TypeScript, Apache Kafka, FI-UBA} % Keywords for your thesis, print it elsewhere with \keywordnames
 \begin{document}
 
 
@@ -76,7 +70,7 @@ headsepline, % Uncomment to get a line under the header
 %The Thesis Abstract is written here (and usually kept to just this page). The page is kept centered vertically so can expand into the blank space above the title too\ldots
 \centering
 
-El resumen debe escribirse en uno o dos párrafo.  Debe ser breve y conciso sin ningún elemento de formato en el texto como itálicas o negrita. Tampoco se deben usar siglas ni acrónimos que no resulten obvios para un lector promedio de la memoria, ni referencias bibliográficas o notas al pie de página.  No debe faltar qué es lo que se hizo/logró, qué importancia/valor tiene el proyecto/resultado, qué va a encontrar el lector en la memoria y qué contenidos de la especialización/maestría se aplicaron en el proyecto.
+Ante la falla de sistemas como el control de puertas o la cámara frontal de registro de accidentes viales, las formaciones ferroviarias activan automáticamente el corte de tracción y el freno de emergencia. En esas circunstancias la formación queda detenida y los pasajeros deben descender a las vías si la detención no se produce en una estación ferroviaria. En este trabajo se presenta el desarrollo para Trenes Argentinos de una arquitectura modular basada en el paradigma de Internet de las Cosas (IoT) que permite visualizar y gestionar los sistemas involucrados en esas situaciones.
 
 \end{abstract}
 
@@ -120,10 +114,10 @@ Esta sección es para agradecimientos personales y es totalmente \textbf{OPCIONA
 % Incluir los capítulos como archivos separados desde la carpeta Chapters
 
 \include{Chapters/Chapter1}
-\include{Chapters/Chapter2} 
-\include{Chapters/Chapter3}
-\include{Chapters/Chapter4} 
-\include{Chapters/Chapter5} 
+%\include{Chapters/Chapter2} 
+%\include{Chapters/Chapter3}
+%\include{Chapters/Chapter4} 
+%\include{Chapters/Chapter5} 
 
 %----------------------------------------------------------------------------------------
 %	CONTENIDO DE LA MEMORIA  - APÉNDICES
@@ -142,9 +136,20 @@ Esta sección es para agradecimientos personales y es totalmente \textbf{OPCIONA
 %	BIBLIOGRAPHY
 %----------------------------------------------------------------------------------------
 
-\Urlmuskip=0mu plus 1mu\relax
-\raggedright
-\printbibliography[heading=bibintoc]
+%\Urlmuskip=0mu plus 1mu\relax
+%\raggedright
+%\printbibliography[heading=bibintoc]
+
+\begin{thebibliography}{00}
+
+\bibitem{b1} 'Sistema de supervisión de la seguridad del material
+ferroviario utilizando patrones de diseño', Ivan Mariano Di Vito, Pablo Gomez, Ariel Lutenberg, Libro de trabajos del CASE2019, Congreso Argetino de Sistemas Embebidos, Santa Fe, Argentina. (2019).
+
+\bibitem{b2} CONICET-GICSAFe (June 2022). [Online]. Disponible: \\ https://sites.google.com/view/conicet-gicsafe/inicio
+
+\bibitem{b3} Trenes Argentinos (June 2022). [Online]. Disponible: \\ https://www.argentina.gob.ar/transporte/trenes 
+
+\end{thebibliography}
 
 %----------------------------------------------------------------------------------------
 
