@@ -2,72 +2,227 @@
 
 \label{Chapter2}
 
+
 %----------------------------------------------------------------------------------------
-%	SECTION 1
-%----------------------------------------------------------------------------------------
-Todos los capítulos deben comenzar con un breve párrafo introductorio que indique cuál es el contenido que se encontrará al leerlo.  La redacción sobre el contenido de la memoria debe hacerse en presente y todo lo referido al proyecto en pasado, siempre de modo impersonal.
+\section{Protocolos de comununicación utilizados}
 
-\section{Estilo y convenciones}
-\label{sec:ejemplo}
+  Comenzar escribiendo que aqui se detallaran los protocolos utilizados segun el modelo OSI y hablar sobre el diagrama    
 
-\subsection{Uso de mayúscula inicial para los título de secciones}
+  **AGREGAR UNA IMAGEN CON LOS 3 ENTES INTERCONECTADOS BAJO EL MODELO OSI !**
 
-Si en el texto se hace alusión a diferentes partes del trabajo referirse a ellas como capítulo, sección o subsección según corresponda. Por ejemplo: ``En el capítulo \ref{Chapter1} se explica tal cosa'', o ``En la sección \ref{sec:ejemplo} se presenta lo que sea'', o ``En la subsección \ref{subsec:ejemplo} se discute otra cosa''.
+        Nucleo F429ZI Board <----> Dedicated Server <----> Web Client
 
-Cuando se quiere poner una lista tabulada, se hace así:
 
-\begin{itemize}
-	\item Este es el primer elemento de la lista.
-	\item Este es el segundo elemento de la lista.
-\end{itemize}
-
-Notar el uso de las mayúsculas y el punto al final de cada elemento.
-
-Si se desea poner una lista numerada el formato es este:
+\subsection{Protocolos de comunicación según el Modelo OSI}
 
 \begin{enumerate}
-	\item Este es el primer elemento de la lista.
-	\item Este es el segundo elemento de la lista.
+
+  \item Capa física:
+      \\
+NUCLEO:     LwIP utiliza los protocolos de hardware subyacentes del dispositivo, como Ethernet o Wi-Fi. Como la nucleo no viene con wi-fi, se usa ethernet.
+      \\
+      Los protocolos de la capa física utilizados por un servidor dedicado y/o un ordenador dependen del tipo de medio físico que se utiliza para transmitir datos a través de la red. Algunos protocolos físicos comunes incluyen par trenzado, fibra óptica y cable coaxial.
+      \\ 
+      Se utiliza Wi-Fi entre el servidor dedicado y el ordenador? es una posibilidad pensando en tener el servidor hosteado en un data center de Trenes Argentinos y se pueda acceder via VPN u otro medio.
+
+
+  \item Capa de enlace: 
+    \\
+ NUCLEO:   LwIP utiliza el protocolo ARP (Address Resolution Protocol) para mapear direcciones IP a direcciones físicas (MAC). 
+    \\
+    server+web client: Los protocolos de la capa de enlace de datos utilizados por un computador dependen del tipo de tarjeta de interfaz de red (NIC) que se esté utilizando. Algunos protocolos comunes de la capa de enlace de datos incluyen Ethernet, Wi-Fi y Token Ring.
+      
+
+  \item Capa de red:
+    \\
+ NUCLEO:   En la capa de red, LwIP utiliza el protocolo IP (Internet Protocol) para enrutar los paquetes de datos a través de la red.
+    \\
+    El protocolo de la capa de red utilizado por un servidor dedicado es típicamente IPv4 o IPv6, que es responsable de enrutar paquetes entre diferentes dispositivos en la red.
+    \\
+    IPv4/6 es un protocolo? me parece que IP es el protocolo.
+
+
+  \item Capa de transporte:
+    \\
+ NUCLEO:   LwIP admite varios protocolos de transporte, incluyendo TCP (Transmission Control Protocol) y UDP (User Datagram Protocol), que se utilizan para proporcionar una conexión confiable o no confiable, respectivamente.
+    \\
+  Los protocolos de la capa de transporte utilizados por un servidor dedicado incluyen TCP (Protocolo de control de transmisión) y UDP (Protocolo de datagramas de usuario), que se utilizan para proporcionar comunicación confiable y/o rápida entre diferentes aplicaciones que se ejeutan en el servidor.
+
+
+  \item Capa de sesión: 
+    \\
+ NUCLEO:   La pila de protocolos LwIP no tiene protocolos específicos de sesión.
+    \\
+    el servidor dedicado y/o el ordenador ofrecen capa de sesion ?
+
+
+  \item Capa de presentación: 
+    \\
+ NUCLEO:   La pila de protocolos LwIP no tiene protocolos específicos de presentación.
+    \\
+    el servidor dedicado y/o el ordenador ofrecen capa de presentacion ?
+
+
+  \item Capa de aplicación: 
+    \\
+ NUCLEO:   En la capa de aplicación, LwIP admite varios protocolos de aplicación, incluyendo HTTP (Hypertext Transfer Protocol), FTP (File Transfer Protocol) y DNS (Domain Name System), entre otros.
+    \\
+    Los protocolos de la capa de aplicación utilizados por un computador dependen de las aplicaciones específicas que se utilizan en el mismo. Algunos ejemplos de protocolos de la capa de aplicación comúnmente utilizados incluyen HTTP (Protocolo de transferencia de hipertexto), FTP (Protocolo de transferencia de archivos), SMTP (Protocolo simple de transferencia de correo) y SSH (Shell seguro).
+    \\
+    HABLAR SOBRE MQTT entre el servidor dedicado y la nucleo 
+
 \end{enumerate}
 
-Notar el uso de las mayúsculas y el punto al final de cada elemento.
 
-\subsection{Este es el título de una subsección}
-\label{subsec:ejemplo}
+\subsection{LwIP Stack}
 
-Se recomienda no utilizar \textbf{texto en negritas} en ningún párrafo, ni tampoco texto \underline{subrayado}. En cambio sí se debe utilizar \textit{texto en itálicas} para palabras en un idioma extranjero, al menos la primera vez que aparecen en el texto. En el caso de palabras que estamos inventando se deben utilizar ``comillas'', así como también para citas textuales. Por ejemplo, un \textit{digital filter} es una especie de ``selector'' que permite separar ciertos componentes armónicos en particular.
+\begin{itemize}
 
-La escritura debe ser impersonal. Por ejemplo, no utilizar ``el diseño del firmware lo hice de acuerdo con tal principio'', sino ``el firmware fue diseñado utilizando tal principio''. 
+  \item La pila de protocolos LwIP (Lightweight IP) desarrollada por STMicroelectronics para sus dispositivos STM32 también sigue el modelo OSI de siete capas.
 
-El trabajo es algo que al momento de escribir la memoria se supone que ya está concluido, entonces todo lo que se refiera a hacer el trabajo se narra en tiempo pasado, porque es algo que ya ocurrió. Por ejemplo, "se diseñó el firmware empleando la técnica de test driven development".
+  \item Es importante destacar que la pila de protocolos LwIP desarrollada por STM32 es altamente configurable y se puede adaptar a diferentes necesidades y requisitos de la aplicación. Además, STMicroelectronics proporciona una variedad de ejemplos y documentación para ayudar a los desarrolladores a implementar la pila de protocolos LwIP en sus dispositivos STM32.
 
-En cambio, la memoria es algo que está vivo cada vez que el lector la lee. Por eso transcurre siempre en tiempo presente, como por ejemplo:
+\end{itemize}
 
-``En el presente capítulo se da una visión global sobre las distintas pruebas realizadas y los resultados obtenidos. Se explica el modo en que fueron llevados a cabo los test unitarios y las pruebas del sistema''.
 
-Se recomienda no utilizar una sección de glosario sino colocar la descripción de las abreviaturas como parte del mismo cuerpo del texto. Por ejemplo, RTOS (\textit{Real Time Operating System}, Sistema Operativo de Tiempo Real) o en caso de considerarlo apropiado mediante notas a pie de página.
+\subsection{Servidor dedicado}
 
-Si se desea indicar alguna página web utilizar el siguiente formato de referencias bibliográficas, dónde las referencias se detallan en la sección de bibliografía de la memoria, utilizado el formato establecido por IEEE en \citep{IEEE:citation}. Por ejemplo, ``el presente trabajo se basa en la plataforma EDU-CIAA-NXP \citep{CIAA}, la cual...''.
 
-\subsection{Figuras} 
+\begin{itemize}
 
-Al insertar figuras en la memoria se deben considerar determinadas pautas. Para empezar, usar siempre tipografía claramente legible. Luego, tener claro que \textbf{es incorrecto} escribir por ejemplo esto: ``El diseño elegido es un cuadrado, como se ve en la siguiente figura:''
+  \item Un servidor dedicado y/o un ordenador típicamente utiliza una variedad de protocolos basados en el modelo OSI (Interconexión de Sistemas Abiertos) para admitir diferentes funcionalidades de red. 
 
-\begin{figure}[h]
-\centering
-\includegraphics[scale=.45]{./Figures/cuadradoAzul.png}
-\end{figure}
+  \item Es importante tener en cuenta que los protocolos específicos utilizados por un servidor dedicado y/o un ordenador pueden variar según el sistema operativo del servidor, la configuración del hardware y la configuración de la red.
 
-La forma correcta de utilizar una figura es con referencias cruzadas, por ejemplo: ``Se eligió utilizar un cuadrado azul para el logo, como puede observarse en la figura \ref{fig:cuadradoAzul}''.
+\end{itemize}
 
-\begin{figure}[ht]
-	\centering
-	\includegraphics[scale=.45]{./Figures/cuadradoAzul.png}
-	\caption{Ilustración del cuadrado azul que se eligió para el diseño del logo.}
-	\label{fig:cuadradoAzul}
-\end{figure}
 
-El texto de las figuras debe estar siempre en español, excepto que se decida reproducir una figura original tomada de alguna referencia. En ese caso la referencia de la cual se tomó la figura debe ser indicada en el epígrafe de la figura e incluida como una nota al pie, como se ilustra en la figura \ref{fig:palabraIngles}.
+\subsection{Protocolos por analizar si estan involucrados en algun punto de la arquitectura}
+
+
+WebSocket: WebSocket is a communication protocol designed for bi-directional, real-time communication between IoT devices and a dashboard. It can be used to provide real-time updates to the dashboard and enable real-time control of IoT devices.
+
+RESTful API: Representational State Transfer (REST) is an architectural style used for creating web services. RESTful APIs can be used to transfer data between IoT devices and a web dashboard.
+
+GraphQL API https://hub.qovery.com/guides/tutorial/deploy-fullstack-application-composed-of-hasura-postgresql-angular
+
+
+
+%----------------------------------------------------------------------------------------
+\section{Tecnologías del \textit{frontend}}
+
+\begin{itemize}
+
+  \item typescript 
+  
+  \item react + react-dom + react-router-dom
+
+  \item parcel 
+
+  \item graphql
+  
+  \item apollo
+
+  \item material ui
+
+
+  \item jwt-decode
+
+  \item query string
+
+  \item WebSocket
+
+  \item uuid
+  
+  \item process 
+
+  \item tsutils
+
+\end{itemize}
+
+
+
+%----------------------------------------------------------------------------------------
+\section{Tecnologías del \textit{backend}}
+
+\begin{itemize}
+
+
+  \item kotlin
+
+  \item kafka: clients, streams, avro-serializer, schema-registry
+
+  \item paho mqtt client
+
+  \item ktor: server-netty, server-core, server-host-common, server-tests, auth, client-core, client-cio, client-serialization, client-serialization-jvm, serialization, serialization-json, network, 
+
+
+  \item kgraphql + kgraphql-client
+
+  \item apollo: runtime, api
+
+  \item krypto
+
+  \item PostgreSQL
+
+  \item docker
+
+  \item hasura
+
+  \item mosquitto mqtt broker
+
+
+\end{itemize}
+
+
+%----------------------------------------------------------------------------------------
+\section{Tecnologías del \textit{firmware}
+
+\begin{itemize}
+
+  \item C lang
+
+  \item FreeRTOS
+
+  \item paho mqtt client
+
+  
+\end{itemize}
+
+
+
+%----------------------------------------------------------------------------------------
+\section{Herramientas utilizadas}
+
+\begin{itemize}
+
+  
+  \item git
+
+  \item mqtt.fx 
+
+  \item hive-mq broker console
+
+  \item neovim
+
+  \item CLion
+
+  \item wireshark
+
+  \item GDB o JTAG para depuración de bajo nivel
+
+  \item brave browser (based on chromium): herramientas de desarrollo, son herramientas fundamentales para el desarrollo de frontend
+
+  \item ST-Link de STMicroelectronics
+
+  \item STM32CubeMX: ioc chip configuration
+
+  \item STM32CubeProgrammer: SWV tool to monitor messages
+
+
+\end{itemize}
+
+
 
 \begin{figure}[htpb]
 	\centering
@@ -78,125 +233,4 @@ El texto de las figuras debe estar siempre en español, excepto que se decida re
 
 \footnotetext{Imagen tomada de \url{https://goo.gl/images/i7C70w}}
 
-La figura y el epígrafe deben conformar una unidad cuyo significado principal pueda ser comprendido por el lector sin necesidad de leer el cuerpo central de la memoria. Para eso es necesario que el epígrafe sea todo lo detallado que corresponda y si en la figura se utilizan abreviaturas entonces aclarar su significado en el epígrafe o en la misma figura.
 
-
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[scale=.37]{./Figures/questionMark.png}
-	\caption{¿Por qué de pronto aparece esta figura?}
-	\label{fig:questionMark}
-\end{figure}
-
-Nunca colocar una figura en el documento antes de hacer la primera referencia a ella, como se ilustra con la figura \ref{fig:questionMark}, porque sino el lector no comprenderá por qué de pronto aparece la figura en el documento, lo que distraerá su atención.
-
-Otra posibilidad es utilizar el entorno \textit{subfigure} para incluir más de una figura, como se puede ver en la figura \ref{fig:three graphs}. Notar que se pueden referenciar también las figuras internas individualmente de esta manera: \ref{fig:1de3}, \ref{fig:2de3} y \ref{fig:3de3}.
- 
-\begin{figure}[!htpb]
-     \centering
-     \begin{subfigure}[b]{0.3\textwidth}
-         \centering
-         \includegraphics[width=.65\textwidth]{./Figures/questionMark}
-         \caption{Un caption.}
-         \label{fig:1de3}
-     \end{subfigure}
-     \hfill
-     \begin{subfigure}[b]{0.3\textwidth}
-         \centering
-         \includegraphics[width=.65\textwidth]{./Figures/questionMark}
-         \caption{Otro.}
-         \label{fig:2de3}
-     \end{subfigure}
-     \hfill
-     \begin{subfigure}[b]{0.3\textwidth}
-         \centering
-         \includegraphics[width=.65\textwidth]{./Figures/questionMark}
-         \caption{Y otro más.}
-         \label{fig:3de3}
-     \end{subfigure}
-        \caption{Tres gráficos simples}
-        \label{fig:three graphs}
-\end{figure}
-
-El código para generar las imágenes se encuentra disponible para su reutilización en el archivo \file{Chapter2.tex}.
-
-\subsection{Tablas}
-
-Para las tablas utilizar el mismo formato que para las figuras, sólo que el epígrafe se debe colocar arriba de la tabla, como se ilustra en la tabla \ref{tab:peces}. Observar que sólo algunas filas van con líneas visibles y notar el uso de las negritas para los encabezados.  La referencia se logra utilizando el comando \verb|\ref{<label>}| donde label debe estar definida dentro del entorno de la tabla.
-
-\begin{verbatim}
-\begin{table}[h]
-	\centering
-	\caption[caption corto]{caption largo más descriptivo}
-	\begin{tabular}{l c c}    
-		\toprule
-		\textbf{Especie}     & \textbf{Tamaño} & \textbf{Valor}\\
-		\midrule
-		Amphiprion Ocellaris & 10 cm           & \$ 6.000 \\		
-		Hepatus Blue Tang    & 15 cm           & \$ 7.000 \\
-		Zebrasoma Xanthurus  & 12 cm           & \$ 6.800 \\
-		\bottomrule
-		\hline
-	\end{tabular}
-	\label{tab:peces}
-\end{table}
-\end{verbatim}
-
-
-\begin{table}[h]
-	\centering
-	\caption[caption corto]{caption largo más descriptivo}
-	\begin{tabular}{l c c}    
-		\toprule
-		\textbf{Especie} 	 & \textbf{Tamaño} 		& \textbf{Valor}  \\
-		\midrule
-		Amphiprion Ocellaris & 10 cm 				& \$ 6.000 \\		
-		Hepatus Blue Tang	 & 15 cm				& \$ 7.000 \\
-		Zebrasoma Xanthurus	 & 12 cm				& \$ 6.800 \\
-		\bottomrule
-		\hline
-	\end{tabular}
-	\label{tab:peces}
-\end{table}
-
-En cada capítulo se debe reiniciar el número de conteo de las figuras y las tablas, por ejemplo, figura 2.1 o tabla 2.1, pero no se debe reiniciar el conteo en cada sección. Por suerte la plantilla se encarga de esto por nosotros.
-
-\subsection{Ecuaciones}
-\label{sec:Ecuaciones}
-
-Al insertar ecuaciones en la memoria dentro de un entorno \textit{equation}, éstas se numeran en forma automática  y se pueden referir al igual que como se hace con las figuras y tablas, por ejemplo ver la ecuación \ref{eq:metric}.
-
-\begin{equation}
-	\label{eq:metric}
-	ds^2 = c^2 dt^2 \left( \frac{d\sigma^2}{1-k\sigma^2} + \sigma^2\left[ d\theta^2 + \sin^2\theta d\phi^2 \right] \right)
-\end{equation}
-                                                        
-Es importante tener presente que si bien las ecuaciones pueden ser referidas por su número, también es correcto utilizar los dos puntos, como por ejemplo ``la expresión matemática que describe este comportamiento es la siguiente:''
-
-\begin{equation}
-	\label{eq:schrodinger}
-	\frac{\hbar^2}{2m}\nabla^2\Psi + V(\mathbf{r})\Psi = -i\hbar \frac{\partial\Psi}{\partial t}
-\end{equation}
-
-Para generar la ecuación \ref{eq:metric} se utilizó el siguiente código:
-
-\begin{verbatim}
-\begin{equation}
-	\label{eq:metric}
-	ds^2 = c^2 dt^2 \left( \frac{d\sigma^2}{1-k\sigma^2} + 
-	\sigma^2\left[ d\theta^2 + 
-	\sin^2\theta d\phi^2 \right] \right)
-\end{equation}
-\end{verbatim}
-
-Y para la ecuación \ref{eq:schrodinger}:
-
-\begin{verbatim}
-\begin{equation}
-	\label{eq:schrodinger}
-	\frac{\hbar^2}{2m}\nabla^2\Psi + V(\mathbf{r})\Psi = 
-	-i\hbar \frac{\partial\Psi}{\partial t}
-\end{equation}
-
-\end{verbatim}
