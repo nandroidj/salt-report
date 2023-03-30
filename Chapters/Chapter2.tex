@@ -13,67 +13,75 @@
         Nucleo F429ZI Board <----> Dedicated Server <----> Web Client
 
 
-\subsection{Protocolos de comunicación según el Modelo OSI}
+\subsection{Protocolos de comunicación}
+
+Se presentan los protocolos de comunicación que se utilizan para el monitoreo y control de las formaciones ferroviarias a través de la central operativa según el modelo \textit{TCP/IP}. En particular, el listado se expone en un formato \textit{uplink} y se distinguen al microcontrolador, que se encuentra en el kit de desarrollo y se configura bajo la pila de protocolos \textit{LwIP}, del microprocesador, que se utiliza tanto en el servidor dedicado como en el ordenador. 
+
+
+
 
 \begin{enumerate}
+   
 
-  \item Capa física:
-      \\
-NUCLEO:     LwIP utiliza los protocolos de hardware subyacentes del dispositivo, como Ethernet o Wi-Fi. Como la nucleo no viene con wi-fi, se usa ethernet.
-      \\
-      Los protocolos de la capa física utilizados por un servidor dedicado y/o un ordenador dependen del tipo de medio físico que se utiliza para transmitir datos a través de la red. Algunos protocolos físicos comunes incluyen par trenzado, fibra óptica y cable coaxial.
-      \\ 
-      Se utiliza Wi-Fi entre el servidor dedicado y el ordenador? es una posibilidad pensando en tener el servidor hosteado en un data center de Trenes Argentinos y se pueda acceder via VPN u otro medio.
+  \item Capa de red: 
+
+    \begin{itemize}
+
+        \item Microcontrolador: LwIP utiliza el protocolo ARP (Address Resolution Protocol) para mapear direcciones IP a direcciones físicas (MAC).
+
+        \item Microprocesador: al igual que en la capa física se emplea el protocolo \textit{Ethernet}.
+
+    \end{itemize}
+ 
+%NUCLEO:  ethernet or wifi  
+%      
+%microprocesador:     Los protocolos de la capa física utilizados por un servidor dedicado y/o un ordenador dependen del tipo de medio físico que se utiliza para transmitir datos a través de la red. Algunos protocolos físicos comunes incluyen par trenzado, fibra óptica y cable coaxial.
+%      
+%      Se utiliza Wi-Fi entre el servidor dedicado y el ordenador? es una posibilidad pensando en tener el servidor hosteado en un data center de Trenes Argentinos y se pueda acceder via VPN u otro medio.
 
 
-  \item Capa de enlace: 
-    \\
- NUCLEO:   LwIP utiliza el protocolo ARP (Address Resolution Protocol) para mapear direcciones IP a direcciones físicas (MAC). 
-    \\
-    server+web client: Los protocolos de la capa de enlace de datos utilizados por un computador dependen del tipo de tarjeta de interfaz de red (NIC) que se esté utilizando. Algunos protocolos comunes de la capa de enlace de datos incluyen Ethernet, Wi-Fi y Token Ring.
-      
 
-  \item Capa de red:
-    \\
- NUCLEO:   En la capa de red, LwIP utiliza el protocolo IP (Internet Protocol) para enrutar los paquetes de datos a través de la red.
-    \\
-    El protocolo de la capa de red utilizado por un servidor dedicado es típicamente IPv4 o IPv6, que es responsable de enrutar paquetes entre diferentes dispositivos en la red.
-    \\
-    IPv4/6 es un protocolo? me parece que IP es el protocolo.
+  \item Capa de internet: en ambos casos se usa el protocolo \textit{IP} (\textit{Internet Protocol}).
+    
+%microcontrolador:   
+% En la capa de red, LwIP utiliza el protocolo IP (Internet Protocol) para enrutar los paquetes de datos a través de la red.
+% LwIP utiliza los protocolos de hardware subyacentes del dispositivo, como Ethernet o Wi-Fi. Como la nucleo no viene con wi-fi, se usa ethernet
+
+%microprocesador: El protocolo de la capa de red utilizado por un servidor dedicado es típicamente IPv4 o IPv6, que es responsable de enrutar paquetes entre diferentes dispositivos en la red.
+%    IPv4/6 es un protocolo? me parece que IP es el protocolo.
 
 
   \item Capa de transporte:
-    \\
- NUCLEO:   LwIP admite varios protocolos de transporte, incluyendo TCP (Transmission Control Protocol) y UDP (User Datagram Protocol), que se utilizan para proporcionar una conexión confiable o no confiable, respectivamente.
-    \\
-  Los protocolos de la capa de transporte utilizados por un servidor dedicado incluyen TCP (Protocolo de control de transmisión) y UDP (Protocolo de datagramas de usuario), que se utilizan para proporcionar comunicación confiable y/o rápida entre diferentes aplicaciones que se ejeutan en el servidor.
 
+    \begin{itemize}
 
-  \item Capa de sesión: 
-    \\
- NUCLEO:   La pila de protocolos LwIP no tiene protocolos específicos de sesión.
-    \\
-    el servidor dedicado y/o el ordenador ofrecen capa de sesion ?
+      \item Microcontrolador: LwIP admite varios protocolos de transporte, incluyendo \textit{TCP} (\textit{Transmission Control Protocol}) y \textit{UDP} (\textit{User Datagram Protocol}), que se utilizan para proporcionar una conexión confiable o no confiable, respectivamente. En especial, se pone en práctica el protocolo \textit{UDP}.
 
+      \item Microprocesador: al igual que en el caso del microcontrolador, se utiliza el protocolo \item{UDP}.
 
-  \item Capa de presentación: 
-    \\
- NUCLEO:   La pila de protocolos LwIP no tiene protocolos específicos de presentación.
-    \\
-    el servidor dedicado y/o el ordenador ofrecen capa de presentacion ?
-
-
+    \end{itemize}
+    
+  
   \item Capa de aplicación: 
-    \\
- NUCLEO:   En la capa de aplicación, LwIP admite varios protocolos de aplicación, incluyendo HTTP (Hypertext Transfer Protocol), FTP (File Transfer Protocol) y DNS (Domain Name System), entre otros.
-    \\
-    Los protocolos de la capa de aplicación utilizados por un computador dependen de las aplicaciones específicas que se utilizan en el mismo. Algunos ejemplos de protocolos de la capa de aplicación comúnmente utilizados incluyen HTTP (Protocolo de transferencia de hipertexto), FTP (Protocolo de transferencia de archivos), SMTP (Protocolo simple de transferencia de correo) y SSH (Shell seguro).
-    \\
-    HABLAR SOBRE MQTT entre el servidor dedicado y la nucleo 
+
+    \begin{itemize}
+
+      \item Microcontrolador: en esta capa no se utiliza alguno de los protocolos dispuestos por el \textit{stack LwIP} sino que se opta por el protocolo \textit{MQTT} (\textit{Message Queuing Telemetry Transport}).
+
+      \item Microprocesador: se utiliza el protocolo \textit{HTTPS} (\textit{Hypertext Transfer Protocol Secure}).
+
+    \end{itemize}
+
+
+ %NUCLEO:   En la capa de aplicación, LwIP admite varios protocolos de aplicación, incluyendo HTTP (Hypertext Transfer Protocol), FTP (File Transfer Protocol) y DNS (Domain Name System), entre otros.
+ %   
+ %   Los protocolos de la capa de aplicación utilizados por un computador dependen de las aplicaciones específicas que se utilizan en el mismo. Algunos ejemplos de protocolos de la capa de aplicación comúnmente utilizados incluyen HTTP (Protocolo de transferencia de hipertexto), FTP (Protocolo de transferencia de archivos), SMTP (Protocolo simple de transferencia de correo) y SSH (Shell seguro).
+ %   
+ %   HABLAR SOBRE MQTT entre el servidor dedicado y la nucleo 
 
 \end{enumerate}
 
-
+    
 \subsection{LwIP Stack}
 
 \begin{itemize}
@@ -95,6 +103,58 @@ NUCLEO:     LwIP utiliza los protocolos de hardware subyacentes del dispositivo,
   \item Es importante tener en cuenta que los protocolos específicos utilizados por un servidor dedicado y/o un ordenador pueden variar según el sistema operativo del servidor, la configuración del hardware y la configuración de la red.
 
 \end{itemize}
+
+
+
+\subsection{Ethernet}
+
+Ethernet es un protocolo de la capa de enlace de datos (Link layer) en la pila de protocolos TCP/IP. En la capa de enlace de datos, Ethernet utiliza una subcapa de Control de Acceso al Medio (MAC) para permitir que varias máquinas compartan el mismo medio físico de transmisión. La subcapa MAC controla el acceso al medio físico para asegurar que un dispositivo no intente transmitir datos al mismo tiempo que otro dispositivo. Para prevenir las colisiones, Ethernet utiliza un esquema de detección de colisiones.
+
+Ethernet es el protocolo más comúnmente utilizado en redes LAN debido a su bajo costo y facilidad de implementación.
+
+
+\subsection{Address Resolution Protocol}
+
+El protocolo ARP (Address Resolution Protocol) es un protocolo de la capa de enlace de datos del modelo TCP/IP. Su función principal es mapear una dirección de protocolo de red (como una dirección IP) a una dirección física (como una dirección MAC).
+
+Cuando un host quiere comunicarse con otro host en la misma red, necesita conocer la dirección física del otro host. Para hacer esto, el host emisor envía un paquete ARP a la red preguntando quién tiene la dirección IP deseada. El host receptor responderá con su dirección física y el host emisor almacenará esta información en su caché ARP para futuras comunicaciones.
+
+En resumen, ARP ayuda a los hosts a comunicarse entre sí en una red TCP/IP al proporcionar una manera de encontrar la dirección física de un host a partir de su dirección IP.
+
+
+\subsection{Internet Protocol}
+
+El Protocolo de Internet (IP) es uno de los protocolos más importantes en el modelo de referencia TCP/IP. Es responsable de enrutar y entregar paquetes de datos en la red, identificando y direccionando los nodos y subredes.
+
+Cuando un paquete de datos se envía a través de la red, se divide en fragmentos y se le asigna una dirección IP de origen y destino. La capa IP se encarga de enrutar los paquetes hacia su destino final, utilizando información de la dirección IP para identificar y localizar los nodos y redes.
+
+En resumen, IP es el protocolo responsable de la comunicación de extremo a extremo en la red, y es esencial para la conectividad de Internet y la comunicación de datos en general.
+
+
+\subsection{User Datagram Protocol}
+
+El protocolo UDP (User Datagram Protocol) es un protocolo de transporte en la capa de transporte del modelo TCP/IP. UDP es un protocolo sin conexión, lo que significa que no establece una sesión entre el emisor y el receptor antes de enviar los datos. En lugar de eso, los datos se envían como datagramas independientes, cada uno con su propia dirección de destino. UDP no garantiza la entrega de los datagramas y no tiene mecanismos de control de flujo o corrección de errores incorporados, lo que lo hace ideal para aplicaciones que requieren transmisiones de datos rápidas y eficientes, pero que pueden tolerar la pérdida ocasional de datos, como en videojuegos o transmisiones en vivo.
+
+
+\subsection{Message Queuing Protocol}
+
+El protocolo MQTT (Message Queuing Telemetry Transport) es un protocolo de aplicación utilizado en el nivel de transporte del modelo TCP/IP. MQTT es un protocolo de mensajería ligero diseñado para enviar mensajes en situaciones de ancho de banda limitado y conexiones de red inestables. Es utilizado en aplicaciones de IoT para comunicar dispositivos con servidores.
+
+El protocolo MQTT utiliza el protocolo TCP como capa de transporte, y se centra en la transferencia de mensajes en lugar de la conexión y autenticación. MQTT también utiliza el modelo de publicación/suscripción, donde los clientes pueden publicar mensajes a un tema y los suscriptores pueden recibir los mensajes de ese tema.
+
+En resumen, MQTT es un protocolo de mensajería ligero utilizado en el nivel de transporte del modelo TCP/IP, que se enfoca en la transferencia de mensajes en situaciones de ancho de banda limitado y conexiones de red inestables, utilizando el modelo de publicación/suscripción y el protocolo TCP como capa de transporte.
+
+
+\subsection{Hypertext Transfer Protocol Secure}
+
+
+HTTP (Hypertext Transfer Protocol) es un protocolo de capa de aplicación que se ejecuta en la cima del modelo TCP/IP. Se utiliza para transmitir información en la World Wide Web (WWW). HTTP define cómo los mensajes son formulados y transmitidos, y cómo los servidores y navegadores responden a los diversos comandos.
+
+Cuando un cliente, como un navegador web, quiere acceder a una página web, envía una solicitud HTTP al servidor web que aloja esa página. El servidor web luego responde con un mensaje HTTP que contiene la página web solicitada. HTTP es un protocolo sin estado, lo que significa que cada solicitud es independiente y no se mantiene información sobre la sesión entre las solicitudes.
+
+HTTP utiliza los puertos 80 para las comunicaciones HTTP normales y el puerto 443 para las comunicaciones HTTPS seguras. HTTPS (HTTP seguro) es una extensión del protocolo HTTP que utiliza SSL/TLS para proporcionar una capa de seguridad adicional al cifrar las comunicaciones entre el cliente y el servidor.
+
+
 
 
 \subsection{Protocolos por analizar si estan involucrados en algun punto de la arquitectura}
