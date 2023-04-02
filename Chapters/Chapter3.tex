@@ -2,91 +2,142 @@
 
 \label{Chapter3} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
 
-\definecolor{mygreen}{rgb}{0,0.6,0}
-\definecolor{mygray}{rgb}{0.5,0.5,0.5}
-\definecolor{mymauve}{rgb}{0.58,0,0.82}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% parámetros para configurar el formato del código en los entornos lstlisting
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\lstset{ %
-  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
-  basicstyle=\footnotesize,        % the size of the fonts that are used for the code
-  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
-  breaklines=true,                 % sets automatic line breaking
-  captionpos=b,                    % sets the caption-position to bottom
-  commentstyle=\color{mygreen},    % comment style
-  deletekeywords={...},            % if you want to delete keywords from the given language
-  %escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
-  %extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
-  %frame=single,	                % adds a frame around the code
-  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
-  keywordstyle=\color{blue},       % keyword style
-  language=[ANSI]C,                % the language of the code
-  %otherkeywords={*,...},           % if you want to add more keywords to the set
-  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
-  numbersep=5pt,                   % how far the line-numbers are from the code
-  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
-  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
-  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
-  showstringspaces=false,          % underline spaces within strings only
-  showtabs=false,                  % show tabs within strings adding particular underscores
-  stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
-  stringstyle=\color{mymauve},     % string literal style
-  tabsize=2,	                   % sets default tabsize to 2 spaces
-  title=\lstname,                  % show the filename of files included with \lstinputlisting; also try caption instead of title
-  morecomment=[s]{/*}{*/}
-}
+\section{Descripción del sistema}
 
 
-%----------------------------------------------------------------------------------------
-%	SECTION 1
-%----------------------------------------------------------------------------------------
-\section{Análisis del software}
- 
-La idea de esta sección es resaltar los problemas encontrados, los criterios utilizados y la justificación de las decisiones que se hayan tomado.
+\textbf{PARAFRASEAR EL PRIMER PARRAFO PORQUE SE REPITE CON LA MOTIVACION DEL PROYECTO !}
 
-Se puede agregar código o pseudocódigo dentro de un entorno lstlisting con el siguiente código:
+El \textit{SAL/T}, según sus siglas, Sistema de Aislamiento Limitado o Total, es un sistema que le permitirá al conductor la activación y desactivación del modo aislado limitado. En este modo, el equipo permite la circulación de la formación al desactivar las señales de corte de tracción y freno de emergencia generadas por los otros subsistemas. Para que esta operación se realice de forma segura, se debe monitorear la velocidad de la formación tal que sea posible evitar que supere cierto valor máximo. 
+Se considera un sistema crítico debido a que, en caso de fallar, puede ocasionar lesiones o muertes de personas, dañar el medio ambiente y/o generar grandes pérdidas materiales.
 
-\begin{verbatim}
-\begin{lstlisting}[caption= "un epígrafe descriptivo"]
-	las líneas de código irían aquí...
-\end{lstlisting}
-\end{verbatim}
+En trabajos anteriores se desarrollaron las primeras cinco fases de catorce que componen el ciclo de vida según la norma \textit{UNE-EN 50126}, centradas en el relevamiento de la necesidad y la obtención de los requerimientos técnicos del sistema.
 
-A modo de ejemplo:
+En la actualidad, existe un prototipo de este sistema que fue finalizado en el año 2019, del cual, en lo que respecta al \textit{firmware}, se propone realizar la migración a un microcontrolador de la familia \textit{Cortex} tipo M con mayor soporte al actual y que cuente con funcionalidades de seguridad.  
 
-\begin{lstlisting}[label=cod:vControl,caption=Pseudocódigo del lazo principal de control.]  % Start your code-block
+Por otro lado, tal como se puede observar en el margen inferior derecho de la figura 1, se plantea el desarrollo de una central operativa. Se trata de una plataforma web que cuenta con una unidad lógica de compartición y empaquetado de software posibilitando la administación, la configuración y el monitoreo en tiempo real de la información recibida y transmitida por parte de cada dispositivo SAL/T. 
 
-#define MAX_SENSOR_NUMBER 3
-#define MAX_ALARM_NUMBER  6
-#define MAX_ACTUATOR_NUMBER 6
 
-uint32_t sensorValue[MAX_SENSOR_NUMBER];		
-FunctionalState alarmControl[MAX_ALARM_NUMBER];	//ENABLE or DISABLE
-state_t alarmState[MAX_ALARM_NUMBER];						//ON or OFF
-state_t actuatorState[MAX_ACTUATOR_NUMBER];			//ON or OFF
+\newpage
+En caso de ser necesario, a partir de la activación de una señal crítica provista por el artefacto \textit{Hasler} \footnote{ es un sistema electromecánico que registra los eventos de velocidad del material rodante, la señal de anuncio y la señal de frenado automático.
+}  que se encuentra instalado en cada formación ferroviaria, un operario puede accionar alguno de los comandos que se listan a continuación:
 
-void vControl() {
 
-	initGlobalVariables();
-	
-	period = 500 ms;
-		
-	while(1) {
+\begin{itemize}
+	\item \textbf{Modo aislado total}: se habilita la tracción y se libera el freno de emergencia, independientemente de cualquier condición. 
 
-		ticks = xTaskGetTickCount();
-		
-		updateSensors();
-		
-		updateAlarms();
-		
-		controlActuators();
-		
-		vTaskDelayUntil(&ticks, period);
-	}
-}
-\end{lstlisting}
+    \item \textbf{Modo coche en deriva}: se corta la tracción y se libera el freno de emergencia, independientemente de cualquier condición. 
+
+    \item \textbf{Modo parada total}: se corta la tracción y se aplica el freno de emergencia, independientemente de cualquier condición. 
+    
+    \item \textbf{Modo intermitente}: se habilita la tracción y se aplica el freno de emergencia en ciclos de tiempo configurables. 
+
+    \item Anulación de comandos remotos vigentes.
+
+\end{itemize}
+
+
+Para el seguimiento de las variables, publicadas por cada dispositivo SAL/T, que permiten la visualización en la plataforma, se realiza la suscripción a un tópico del \textit{broker} \textit{MQTT} y se registra la información indexada en la base de datos de un servidor. En consecuencia, resulta de extrema importancia que la comunicación a través de \textit{MQTT} opere sobre el protocolo de encriptación \textit{SSL/TSL}, de modo que se exponga un considerable nivel de seguridad; de igual manera, es necesaria la utilización de certificados para el acceso a la lectura y la escritura en la base de datos.  
+
+Así mismo, es necesario que la página web ofrezca la configuración de los parámetros de cada dispositivo conectado a la formación ferroviaria, la administración de los roles y la autenticación de los usuarios.
+
+\begin{figure}[htpb]
+\centering 
+\includegraphics[width=.8\textwidth]{Figures/diagrama_salt_con_central.png}
+\caption{Diagrama en bloques del sistema SALT.}
+\label{fig:diagBloques}
+\end{figure}
+
+
+
+\section{Arquitectura del sistema}
+
+
+
+\captionsetup[figure]{font=small}
+
+
+\section{Arquitectura propuesta}
+
+
+\textbf{PARAFRASEAR EL PRIMER PARRAFO PORQUE SE REPITE CON LA MOTIVACION DEL PROYECTO !}
+
+A partir de los modelos más relevantes que se encuentran establecidos para el desarrollo e implementación de aplicaciones de software se consideran el \textit{stack web} y el \textit{stack IoT}. A pesar de las similitudes entre ambos, en la aplicación el \textit{stack web} emplea el protocolo \textit{HTTP} \cite{b5} mientras que el \textit{stack IoT} utiliza el protocolo \textit{MQTT} \cite{b6}; siendo este último el más adecuado para escenarios donde son limitados los recursos como el ancho de banda y el consumo de energía.
+
+En especial, el protocolo \textit{MQTT} dispone de mensajes más livianos y además es posible transmitir y/o recibir datos en formato binario sin la necesidad de una codificación previa. También, este protocolo permite asignar niveles de calidad de servicio (\textit{QoS}) \cite{b7} a los mensajes transmitidos, resultando una característica primordial en aplicaciones donde la probabilidad de pérdidas de paquetes es considerable.
+
+La \textbf{figura X} presenta la estratificación de las capas, según el \textit{stack IoT}, que son detalladas a lo largo de esta sección.
+
+
+\textbf{AGREGAR NUEVA FIGURA SUPER GENERAL DEL STACK IOT CON SUS CAPAS}
+
+
+\subsection{Capa de dispositivos}
+
+Sobre la base de un prototipo del Sistema de Aislamiento Limitado o Total, \textit{SAL/T} \cite{b1}, se desarrolló mediante el kit de desarrollo \textit{Nucleo F429} \cite{b8}, un cliente \textit{MQTT} que permite la publicación de la velocidad de la formación y de los parámetros provistos por los subsistemas de falla, entre otras variables; y llegado el caso, el dispositivo pueda realizar la lectura de diferentes parámetros configurables.
+
+\subsection{Capa de conectividad}
+
+Para la comunicación entre los dispositivos \textit{SAL/T} y la capa de almacenamiento se emplea un \textit{Broker MQTT} que oficia de orquestador entre el cliente, el dispositivo \textit{SAL/T} que publica los mensajes y \textit{Apache Kafka} \cite{b9}, un sistema distribuido que efectúa la lectura de la información y su posterior procesamiento. 
+
+Dado que los mensajes intercambiados entre las partes contienen información sensible, se ha optado por agregar la capa de seguridad \textit{TLS} \cite{b10}. En este sentido, resulta indispensable utilizar el certificado \textit{X509} \cite{b11} para prevenir ataques del tipo \textit{adversary-in-the-middle} \cite{b12} y los certificados emitidos por autoridades reconocidas.
+
+
+\subsection{Capa de almacenamiento}
+
+La capa de almacenamiento se encuentra constituida por el sistema distribuido \textit{Kafka} que se encarga de almacenar los datos de la aplicación. Entre ellos se destacan los mensajes MQTT enviados por los dispositivos SAL/T, como también la información referida a las formaciones y a los SAL/T que las ocupan. Además, se tienen servicios de procesamiento de datos que se encargan de adaptar la información de los tópicos en datos que posteriormente serán consumidos por los servicios que integran la capa superior.
+
+Por otro lado, se tiene una base de datos relacional \textit{PostgreSQL} \cite{b13} para el almacenamiento de los datos provenientes del servicio de autenticación y el motor que facilita la interacción con la plataforma web. Los conectores se encargan de insertar los datos que se quieran disponer a la capa de visualización.
+
+
+En la figura \textbf{devicesTrainEntity} se observa el modelo de datos que representa a los dispositivos SAL/T, las formaciones y las entidades. 
+El primero cuenta con un identificador del dispositivo en el sistema, el estado de operación y una referencia al tren en el que se desplegó el artefacto. 
+El modelo de la formación está enriquecido con la entidad a la que pertenece y el número de serie del tren. 
+Por último, las entidades están compuestas por nombre y descripción.
+En la figura \textbf{devicesSubsystems} se aprecian los subsistemas de fallas relacionados con el dispositivo SAL/T. Su modelo está integrado con el nombre del subsistema, el identificador del dispositivo al que está asociado y el estado actual del mismo. 
+
+\subsection{Capa de interacción}
+
+La capa de interacción se encuentra conformada por tres unidades. Por un lado, se ha desarrollado en el lenguaje \textit{Kotlin} \cite{b14} en conjunto con el \textit{framework} \textit{Ktor} \cite{b15}, un microservicio de autenticación donde es posible la gestión de los usuarios con sus respectivos roles y también el \textit{backend}. Entre sus tareas principales se encuentran las relacionadas con el protocolo \textit{MQTT} para la actualización de los certificados que brindan seguridad a las comunicaciones, mediante el uso de la capa de seguridad \textit{TLS}, y la indexación de los eventos que se publiquen en tiempo real; como la configuración general que permite el funcionamiento integral de los servicios y módulos dispuestos en el sistema. \\
+
+Además, se dispone del motor \textit{Hasura} \cite{b16}, el cual se encuentra conectado a una base de datos relacional (\textit{PostgreSQL}) basado en el lenguaje de consulta estructurado \textit{SQL} \cite{b17}, que permite exponer una \textit{API GraphQL} \cite{b18} a aquellos clientes que deseen obtener una visualización del modelo de datos propuesto en que se conjuga la información de cada formación ferroviaria con su correspondiente dispositivo \textit{SAL/T} y diseño destinado al \textit{frontend}. Más aún, el enlace permite realizar modificaciones y hasta remociones de las columnas propuestas en las tablas de cada esquema dentro de la base de datos.
+
+
+\subsection{Capa de visualización}
+
+  En esta capa se ha utilizado el lenguaje de programación \textit{TypeScript} \cite{b19} junto con la biblioteca gráfica \textit{React} \cite{b20} para brindar una web reactiva en la que se elaboraron los formularios, las tablas y los paneles a partir de la explotación de la información almacenada en la base de datos. Cabe destacar que la plataforma web se encuentra condicionada por el rol y la entidad a la que pertenece cada usuario, de modo que, cada formación ferroviaria tendrá un operador asignado, el cual podrá modificar los parámetros correspondientes con el dispositivo asociado.
+
+En la figura \textbf{dashboard} se puede apreciar el panel de control de la central operativa al que tendrán acceso los operadores de cada entidad.
+En el mismo se observan distintas tarjetas con el estado de cada subsistema de fallas y del tren, como así también un velocímetro que
+informa la velocidad de la formación.
+
+
+\section{Arquitectura de datos}
+
+
+
+
+
+
+
+\section{Ciberseguridad del sistema}
+
+\section{Desarrollo del firmware}
+
+\section{Desarrollo de la API GraphQL}
+
+\section{Desarrollo de la aplicación}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
