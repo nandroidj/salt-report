@@ -48,16 +48,20 @@ Así mismo, es necesario que la página web ofrezca la configuración de los par
 \label{fig:diagBloques}
 \end{figure}
 
+\subsection{Comunicación device & backend}
+
+MQTT
+
+Ver cuanto se repite con el ultimo parrafo de arriba.
+
+\subsection{Comunicación backend & frontend}
+
+HTTP
+
+Ver cuanto se repite con el ultimo parrafo de arriba.
 
 
 \section{Arquitectura del sistema}
-
-
-
-\captionsetup[figure]{font=small}
-
-
-\section{Arquitectura propuesta}
 
 
 \textbf{PARAFRASEAR EL PRIMER PARRAFO PORQUE SE REPITE CON LA MOTIVACION DEL PROYECTO !}
@@ -105,28 +109,242 @@ Además, se dispone del motor \textit{Hasura} \cite{b16}, el cual se encuentra c
 
 \subsection{Capa de visualización}
 
-  En esta capa se ha utilizado el lenguaje de programación \textit{TypeScript} \cite{b19} junto con la biblioteca gráfica \textit{React} \cite{b20} para brindar una web reactiva en la que se elaboraron los formularios, las tablas y los paneles a partir de la explotación de la información almacenada en la base de datos. Cabe destacar que la plataforma web se encuentra condicionada por el rol y la entidad a la que pertenece cada usuario, de modo que, cada formación ferroviaria tendrá un operador asignado, el cual podrá modificar los parámetros correspondientes con el dispositivo asociado.
+En esta capa se ha utilizado el lenguaje de programación \textit{TypeScript} \cite{b19} junto con la biblioteca gráfica \textit{React} \cite{b20} para brindar una web reactiva en la que se elaboraron los formularios, las tablas y los paneles a partir de la explotación de la información almacenada en la base de datos. Cabe destacar que la plataforma web se encuentra condicionada por el rol y la entidad a la que pertenece cada usuario, de modo que, cada formación ferroviaria tendrá un operador asignado, el cual podrá modificar los parámetros correspondientes con el dispositivo asociado.
 
 En la figura \textbf{dashboard} se puede apreciar el panel de control de la central operativa al que tendrán acceso los operadores de cada entidad.
-En el mismo se observan distintas tarjetas con el estado de cada subsistema de fallas y del tren, como así también un velocímetro que
-informa la velocidad de la formación.
+En el mismo se observan distintas tarjetas con el estado de cada subsistema de fallas y del tren, como así también un velocímetro que informa la velocidad de la formación.
 
 
 \section{Arquitectura de datos}
 
+Para crear la estructura de la base de datos SQL, se realiza un análisis detallado del sistema y se identifican las principales entidades: la formación ferroviaria, los subsistemas de falla y las áreas. Toda la información de estas entidades se nuclea en la entidad tren, la cual representa una formación ferroviaria con todos sus subsistemas y áreas asociadas. A partir del modelado de estas entidades y sus atributos correspondientes, se definen las relaciones entre ellas y se establecen las claves primarias y foráneas.
+
+
+Para visualizar de manera más clara la estructura de la base de datos y sus relaciones, se utiliza el diagrama UML (Lenguaje de Modelado Unificado). En la siguiente figura se muestra el diagrama UML de la base de datos, donde se pueden observar las diferentes entidades, sus atributos y relaciones. A partir de este diagrama se procede a crear las tablas en la base de datos SQL y a definir sus columnas y restricciones, garantizando así la integridad de los datos y el correcto funcionamiento del sistema.
+
+
+\textbf{CONTINUAR CON EL DIAGRAMA UML CONECTANDO LAS ENTIDADES  \\ VER Figures/salt\_uml\_drawio}
+\url{https://app.diagrams.net/}
+
+
+\subsection{Entidades del modelo de datos}
+
+
+\textbf{COMENTAR SI ES QUE LAS HAY, PARTICULARIDADES SOBRE CADA UNA DE LAS ETIDADES DEL SISTEMA Y CADA TABLA DEL DIAGRAMA UML}
+
+ 
+\subsubsection{Schema auth\_service}
+
+\begin{itemize}
+
+\item \textbf{credentials}: Esta tabla almacena las credenciales de los usuarios para acceder al sistema. Tiene una clave foránea a la tabla \textbf{auth\_service users} y es referenciada por la tabla \textbf{auth\_service roles}.
+
+\item \textbf{roles}: Esta tabla almacena los roles de los usuarios. Tiene una clave foránea a la tabla \textbf{auth\_service users} y es referenciada por la tabla \textbf{enums roles}.
+
+\item \textbf{users}: Esta tabla almacena la información básica de los usuarios del sistema. Es referenciada por la tabla \textbf{auth\_service credentials} y la tabla \textbf{public users}.
+
+\end{itemize}
+
+
+\subsubsection{Schema enums}
+
+\begin{itemize}
+
+  \item \textbf{device status}: Esta tabla almacena los estados posibles para los dispositivos. Es referenciada por la tabla \textbf{public devices}.
+
+  \item \textbf{events}: Esta tabla almacena los tipos de eventos posibles. Es referenciada por la tabla \textbf{public internal events}.
+
+  \item \textbf{fail system}: Esta tabla almacena los sistemas de falla posibles. Es referenciada por la tabla \textbf{public remote events} y la tabla \textbf{public subsystems}.
+
+  \item \textbf{roles}: Esta tabla almacena los roles posibles para los usuarios del sistema. Es referenciada por la tabla \textbf{auth\_service roles}.
+
+\end{itemize}
+
+
+\subsubsection{Schema public}
+
+\begin{itemize}
+
+\item \textbf{devices}: Esta tabla almacena información sobre los dispositivos del sistema. Tiene una clave foránea a la tabla \textbf{public train} y es referenciada por la tabla \textbf{public remote events} y la tabla \textbf{public internal events}.
+
+\item \textbf{entities}: Esta tabla almacena información sobre las entidades del sistema. Es referenciada por la tabla \textbf{public train}.
+
+\item \textbf{internal events}: Esta tabla almacena información sobre los eventos internos del sistema. Tiene claves foráneas a las tablas \textbf{public devices}, \textbf{enums events} y \textbf{public users}.
+
+\item \textbf{remote events}: Esta tabla almacena información sobre los eventos remotos del sistema. Tiene una clave foránea a la tabla \textbf{public devices} y es referenciada por la tabla \textbf{enums fail system}.
+
+\item \textbf{subsystems}: Esta tabla almacena información sobre los subsistemas del sistema. Tiene una clave foránea a la tabla \textbf{public devices} y es referenciada por la tabla \textbf{enums fail system}.
+
+\item \textbf{train}: Esta tabla almacena información sobre los trenes del sistema. Tiene una clave foránea a la tabla \textbf{public entities} y es referenciada por la tabla \textbf{public devices}.
+
+\item \textbf{user data}: Esta tabla almacena información adicional de los usuarios del sistema. Es referenciada por la tabla \textbf{public users}.
+
+\item \textbf{users}: tabla que contiene información de los usuarios. Tiene una relación de clave externa con la tabla entities.
+
+
+\end{itemize}
 
 
 
 
 
 
-\section{Ciberseguridad del sistema}
+\section{Seguridad del sistema}
+
+\subsection{Protocolo HTTPS}
+
+security layer
+
+jwt
+
+\textbf{Referencia - pag 44}
+https://lse-posgrados-files.fi.uba.ar/tesis/LSE-FIUBA-Trabajo-Final-CEIoT-Pedro-Rosito-2021.pdf
+
+
+\subsection{MQTT v5.0}
+
+payload encryption
+
+
+
+\section{Desarrollo del frontend}
+
+\textbf{AGREGAR UNA BREVE INTRO SOBRE QUE SE EXPONDRA AQUI}
+\textit{tipos de clientes, apollo client, codegen, }
+
+\subsection{Estructura del cliente web}
+
+\begin{enumerate}
+
+  \item index html
+
+  \item main tsx 
+
+  \item react router -> pages
+
+\end{enumerate}
+
+
+\subsection{Páginas}
+
+\textbf{HABLAR DE CADA PAGINA A PARTIR DE UNA IMAGEN DONDE SE MUESTRE EL SIDEBAR}
+
+\textit{dashboard, sign in, configuration, entities, trains, subsystems of each train, logs, etc}
+
+\subsubsection{Login}
+
+\textbf{hablar sobre jwt}
+\textit{Referecia - bastian pag 48}
+
+\textbf{add figure}
+
+
+\subsubsection{Tabla de trenes+salt}
+
+\textbf{add figure}
+
+
+\subsubsection{Tabla de usuarios}
+
+\textbf{add figure}
+
+
+\subsubsection{dashboard}
+
+\textbf{add figure}
+
+\subsection{Modales}
+
+\textit{crear: usuario, tren, dispositivo ; configuracion: sub sistemas de seguridad, etc}
+
+
+
+
+
+\section{Desarrollo del backend}
+
+
+A partir del uso de archivo docker-compose, que se ejecuta en un entorno Docker, para proporcionar el conjunto completo de servicios para enviar, recibir y almacenar los datos a través de diferentes protocolos. Cada servicio se ejecuta en su propio contenedor y se conecta a los otros servicios según el siguiente formato:
+
+
+\textbf{AGREGAR IMAGEN DEL ENTORNO DOCKER CON SUS CONTENEDORES Y CONEXIONES }
+\url{https://www.gotoiot.com/pages/articles/docker_intro/index.html}
+\url{https://www.gotoiot.com/pages/articles/docker_intro/images/image2.png}
+
+
+\begin{itemize}
+
+  \item mosquitto: es un servidor MQTT de código abierto que se utiliza para enviar y recibir mensajes. Se utiliza la imagen "eclipse-mosquitto" y se mapea el puerto 1883 en el host al puerto 1883 en el contenedor. También se montan dos volúmenes, uno para la configuración del servidor y otro para los datos.
+
+  \item hasura: es un motor de GraphQL que proporciona una API para interactuar con una base de datos. Se utiliza la imagen "hasura/graphql-engine:v2.1.0" y se mapea el puerto 8080 en el host al puerto 8080 en el contenedor. Se configuran varias variables de entorno, incluyendo la URL de la base de datos y el secreto de administrador. También depende del servicio "postgres".
+
+  \item postgres: es una base de datos relacional que se utiliza para almacenar datos. Se utiliza la imagen "postgres:13" y se mapea el puerto 5432 en el host al puerto 5432 en el contenedor. Se configuran varias variables de entorno, incluyendo el nombre de la base de datos, el nombre de usuario y la contraseña. También se monta un volumen para almacenar los datos de la base de datos.
+
+  \item zookeeper: es un servicio que se utiliza para coordinar los nodos de Kafka. Se utiliza la imagen "confluentinc/cp-zookeeper:6.2.4" y se configura el puerto de cliente en 2181.
+
+  \item kafka: es un servicio de mensajería de código abierto que se utiliza para enviar y recibir mensajes. Se utiliza la imagen "confluentinc/cp-kafka:6.2.4" y se mapea el puerto 9092 en el host al puerto 9092 en el contenedor. Se configuran varias variables de entorno, incluyendo la conexión de Zookeeper y el número de réplicas de las particiones. También depende del servicio "zookeeper".
+
+  \item kafka-ui: es una interfaz de usuario para administrar y monitorear clústeres de Kafka. Se utiliza la imagen "provectuslabs/kafka-ui" y se mapea el puerto 8085 en el host al puerto 8080 en el contenedor. Se configuran varias variables de entorno, incluyendo la conexión al clúster de Kafka, el esquema de registro y el servidor de KSQLDB.
+
+\end{itemize}
+
+
+\subsubsection{Mosquitto Broker}
+
+\textbf{TALK ABOUT THE MOSQUITTO CONFIG FILE AND THE CLI INSTALLATION, USAGE, ETC.}
+
+
+\subsubsection{Hasura}
+
+\textbf{TALK ABOUT HASURA GUI, CLI AND USAGE. ADD AN EXAMPLE QUERY}
+
+
+\subsubsection{Kafka}
+
+\textbf{TALK ABOUT KAFKA AND REDPANDA. ADD AN EXAMPLE QUERY}
+
 
 \section{Desarrollo del firmware}
 
+\textbf{Explicar como se combinan todas las tecnologias y herramientas en el firmware. basarlo en el stack lwip}
+
+\textbf{Referecia - pagina 43}
+\textit{https://lse-posgrados-files.fi.uba.ar/tesis/LSE-FIUBA-Trabajo-Final-CEIoT-Pedro-Rosito-2021.pdf }
+
+
+\begin{itemize}
+
+  \item based on: \url{https://blog.naver.com/eziya76/221938551688}
+
+  \item nucleo F429ZI kit development
+
+  \item free rtos
+
+  \item tools: cube mx, cube programmer, mosquitto cli
+
+\end{itemize}
+
+
+
 \section{Desarrollo de la API GraphQL}
 
-\section{Desarrollo de la aplicación}
+\textbf{Referencias}
+
+\begin{itemize}
+
+  \item https://github.com/nandroidj/app-fullstack-base-2021-1c
+    \\ \textit{Detalles de implementación -> Ver los endpoints disponibles}
+
+  \item https://www.notion.so/briken/KoyweTransaction-8d9ba1eda4664819a30378c3548ebacf?pvs=4
+
+  \item https://www.notion.so/briken/User-2ad1013d829548d0a7e992e31e53f7df?pvs=4
+
+\end{itemize}
+
+
+
+
+
 
 
 
