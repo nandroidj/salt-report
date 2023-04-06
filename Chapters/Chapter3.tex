@@ -48,13 +48,13 @@ Así mismo, es necesario que la página web ofrezca la configuración de los par
 \label{fig:diagBloques}
 \end{figure}
 
-\subsection{Comunicación device & backend}
+\subsection{Comunicación device y backend}
 
 MQTT
 
 Ver cuanto se repite con el ultimo parrafo de arriba.
 
-\subsection{Comunicación backend & frontend}
+\subsection{Comunicación backend y frontend}
 
 HTTP
 
@@ -66,9 +66,9 @@ Ver cuanto se repite con el ultimo parrafo de arriba.
 
 \textbf{PARAFRASEAR EL PRIMER PARRAFO PORQUE SE REPITE CON LA MOTIVACION DEL PROYECTO !}
 
-A partir de los modelos más relevantes que se encuentran establecidos para el desarrollo e implementación de aplicaciones de software se consideran el \textit{stack web} y el \textit{stack IoT}. A pesar de las similitudes entre ambos, en la aplicación el \textit{stack web} emplea el protocolo \textit{HTTP} \cite{b5} mientras que el \textit{stack IoT} utiliza el protocolo \textit{MQTT} \cite{b6}; siendo este último el más adecuado para escenarios donde son limitados los recursos como el ancho de banda y el consumo de energía.
+A partir de los modelos más relevantes que se encuentran establecidos para el desarrollo e implementación de aplicaciones de software se consideran el \textit{stack web} y el \textit{stack IoT}. A pesar de las similitudes entre ambos, en la aplicación el \textit{stack web} emplea el protocolo \textit{HTTP} mientras que el \textit{stack IoT} utiliza el protocolo \textit{MQTT}; siendo este último el más adecuado para escenarios donde son limitados los recursos como el ancho de banda y el consumo de energía.
 
-En especial, el protocolo \textit{MQTT} dispone de mensajes más livianos y además es posible transmitir y/o recibir datos en formato binario sin la necesidad de una codificación previa. También, este protocolo permite asignar niveles de calidad de servicio (\textit{QoS}) \cite{b7} a los mensajes transmitidos, resultando una característica primordial en aplicaciones donde la probabilidad de pérdidas de paquetes es considerable.
+En especial, el protocolo \textit{MQTT} dispone de mensajes más livianos y además es posible transmitir y/o recibir datos en formato binario sin la necesidad de una codificación previa. También, este protocolo permite asignar niveles de calidad de servicio (\textit{QoS}) a los mensajes transmitidos, resultando una característica primordial en aplicaciones donde la probabilidad de pérdidas de paquetes es considerable.
 
 La \textbf{figura X} presenta la estratificación de las capas, según el \textit{stack IoT}, que son detalladas a lo largo de esta sección.
 
@@ -78,20 +78,20 @@ La \textbf{figura X} presenta la estratificación de las capas, según el \texti
 
 \subsection{Capa de dispositivos}
 
-Sobre la base de un prototipo del Sistema de Aislamiento Limitado o Total, \textit{SAL/T} \cite{b1}, se desarrolló mediante el kit de desarrollo \textit{Nucleo F429} \cite{b8}, un cliente \textit{MQTT} que permite la publicación de la velocidad de la formación y de los parámetros provistos por los subsistemas de falla, entre otras variables; y llegado el caso, el dispositivo pueda realizar la lectura de diferentes parámetros configurables.
+Sobre la base de un prototipo del Sistema de Aislamiento Limitado o Total, \textit{SAL/T}, se desarrolló mediante el kit de desarrollo \textit{Nucleo F429} \citep{nucleo-kit}, un cliente \textit{MQTT} que permite la publicación de la velocidad de la formación y de los parámetros provistos por los subsistemas de falla, entre otras variables; y llegado el caso, el dispositivo pueda realizar la lectura de diferentes parámetros configurables.
 
 \subsection{Capa de conectividad}
 
-Para la comunicación entre los dispositivos \textit{SAL/T} y la capa de almacenamiento se emplea un \textit{Broker MQTT} que oficia de orquestador entre el cliente, el dispositivo \textit{SAL/T} que publica los mensajes y \textit{Apache Kafka} \cite{b9}, un sistema distribuido que efectúa la lectura de la información y su posterior procesamiento. 
+Para la comunicación entre los dispositivos \textit{SAL/T} y la capa de almacenamiento se emplea un \textit{Broker MQTT} que oficia de orquestador entre el cliente, el dispositivo \textit{SAL/T} que publica los mensajes y \textit{Apache Kafka}, un sistema distribuido que efectúa la lectura de la información y su posterior procesamiento. 
 
-Dado que los mensajes intercambiados entre las partes contienen información sensible, se ha optado por agregar la capa de seguridad \textit{TLS} \cite{b10}. En este sentido, resulta indispensable utilizar el certificado \textit{X509} \cite{b11} para prevenir ataques del tipo \textit{adversary-in-the-middle} \cite{b12} y los certificados emitidos por autoridades reconocidas.
+Dado que los mensajes intercambiados entre las partes contienen información sensible, se ha optado por agregar la capa de seguridad \textit{TLS}. En este sentido, resulta indispensable utilizar el certificado \textit{X509} para prevenir ataques del tipo \textit{adversary-in-the-middle} y los certificados emitidos por autoridades reconocidas.
 
 
 \subsection{Capa de almacenamiento}
 
 La capa de almacenamiento se encuentra constituida por el sistema distribuido \textit{Kafka} que se encarga de almacenar los datos de la aplicación. Entre ellos se destacan los mensajes MQTT enviados por los dispositivos SAL/T, como también la información referida a las formaciones y a los SAL/T que las ocupan. Además, se tienen servicios de procesamiento de datos que se encargan de adaptar la información de los tópicos en datos que posteriormente serán consumidos por los servicios que integran la capa superior.
 
-Por otro lado, se tiene una base de datos relacional \textit{PostgreSQL} \cite{b13} para el almacenamiento de los datos provenientes del servicio de autenticación y el motor que facilita la interacción con la plataforma web. Los conectores se encargan de insertar los datos que se quieran disponer a la capa de visualización.
+Por otro lado, se tiene una base de datos relacional \textit{PostgreSQL} para el almacenamiento de los datos provenientes del servicio de autenticación y el motor que facilita la interacción con la plataforma web. Los conectores se encargan de insertar los datos que se quieran disponer a la capa de visualización.
 
 
 En la figura \textbf{devicesTrainEntity} se observa el modelo de datos que representa a los dispositivos SAL/T, las formaciones y las entidades. 
@@ -102,19 +102,19 @@ En la figura \textbf{devicesSubsystems} se aprecian los subsistemas de fallas re
 
 \subsection{Capa de interacción}
 
-La capa de interacción se encuentra conformada por tres unidades. Por un lado, se ha desarrollado en el lenguaje \textit{Kotlin} \cite{b14} en conjunto con el \textit{framework} \textit{Ktor} \cite{b15}, un microservicio de autenticación donde es posible la gestión de los usuarios con sus respectivos roles y también el \textit{backend}. Entre sus tareas principales se encuentran las relacionadas con el protocolo \textit{MQTT} para la actualización de los certificados que brindan seguridad a las comunicaciones, mediante el uso de la capa de seguridad \textit{TLS}, y la indexación de los eventos que se publiquen en tiempo real; como la configuración general que permite el funcionamiento integral de los servicios y módulos dispuestos en el sistema. \\
+La capa de interacción se encuentra conformada por tres unidades. Por un lado, se ha desarrollado en el lenguaje \textit{Kotlin} en conjunto con el \textit{framework} \textit{Ktor}, un microservicio de autenticación donde es posible la gestión de los usuarios con sus respectivos roles y también el \textit{backend}. Entre sus tareas principales se encuentran las relacionadas con el protocolo \textit{MQTT} para la actualización de los certificados que brindan seguridad a las comunicaciones, mediante el uso de la capa de seguridad \textit{TLS}, y la indexación de los eventos que se publiquen en tiempo real; como la configuración general que permite el funcionamiento integral de los servicios y módulos dispuestos en el sistema. \\
 
-Además, se dispone del motor \textit{Hasura} \cite{b16}, el cual se encuentra conectado a una base de datos relacional (\textit{PostgreSQL}) basado en el lenguaje de consulta estructurado \textit{SQL} \cite{b17}, que permite exponer una \textit{API GraphQL} \cite{b18} a aquellos clientes que deseen obtener una visualización del modelo de datos propuesto en que se conjuga la información de cada formación ferroviaria con su correspondiente dispositivo \textit{SAL/T} y diseño destinado al \textit{frontend}. Más aún, el enlace permite realizar modificaciones y hasta remociones de las columnas propuestas en las tablas de cada esquema dentro de la base de datos.
+Además, se dispone del motor \textit{Hasura}, el cual se encuentra conectado a una base de datos relacional (\textit{PostgreSQL}) basado en el lenguaje de consulta estructurado \textit{SQL}, que permite exponer una \textit{API GraphQL} a aquellos clientes que deseen obtener una visualización del modelo de datos propuesto en que se conjuga la información de cada formación ferroviaria con su correspondiente dispositivo \textit{SAL/T} y diseño destinado al \textit{frontend}. Más aún, el enlace permite realizar modificaciones y hasta remociones de las columnas propuestas en las tablas de cada esquema dentro de la base de datos.
 
 
 \subsection{Capa de visualización}
 
-En esta capa se ha utilizado el lenguaje de programación \textit{TypeScript} \cite{b19} junto con la biblioteca gráfica \textit{React} \cite{b20} para brindar una web reactiva en la que se elaboraron los formularios, las tablas y los paneles a partir de la explotación de la información almacenada en la base de datos. Cabe destacar que la plataforma web se encuentra condicionada por el rol y la entidad a la que pertenece cada usuario, de modo que, cada formación ferroviaria tendrá un operador asignado, el cual podrá modificar los parámetros correspondientes con el dispositivo asociado.
+En esta capa se ha utilizado el lenguaje de programación \textit{TypeScript} junto con la biblioteca gráfica \textit{React} para brindar una web reactiva en la que se elaboraron los formularios, las tablas y los paneles a partir de la explotación de la información almacenada en la base de datos. Cabe destacar que la plataforma web se encuentra condicionada por el rol y la entidad a la que pertenece cada usuario, de modo que, cada formación ferroviaria tendrá un operador asignado, el cual podrá modificar los parámetros correspondientes con el dispositivo asociado.
 
 En la figura \textbf{dashboard} se puede apreciar el panel de control de la central operativa al que tendrán acceso los operadores de cada entidad.
 En el mismo se observan distintas tarjetas con el estado de cada subsistema de fallas y del tren, como así también un velocímetro que informa la velocidad de la formación.
 
-
+\newpage
 \section{Arquitectura de datos}
 
 Para crear la estructura de la base de datos SQL, se realiza un análisis detallado del sistema y se identifican las principales entidades: la formación ferroviaria, los subsistemas de falla y las áreas. Toda la información de estas entidades se nuclea en la entidad tren, la cual representa una formación ferroviaria con todos sus subsistemas y áreas asociadas. A partir del modelado de estas entidades y sus atributos correspondientes, se definen las relaciones entre ellas y se establecen las claves primarias y foráneas.
@@ -332,6 +332,8 @@ A partir del uso de archivo docker-compose, que se ejecuta en un entorno Docker,
 
 \begin{itemize}
 
+  %https://github.com/Azure-Samples/blockchain/blob/master/blockchain-workbench/rest-api-samples/java/generated/docs/ApplicationsApi.md#applicationDelete
+  
   \item https://github.com/nandroidj/app-fullstack-base-2021-1c
     \\ \textit{Detalles de implementación -> Ver los endpoints disponibles}
 
@@ -340,22 +342,5 @@ A partir del uso de archivo docker-compose, que se ejecuta en un entorno Docker,
   \item https://www.notion.so/briken/User-2ad1013d829548d0a7e992e31e53f7df?pvs=4
 
 \end{itemize}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

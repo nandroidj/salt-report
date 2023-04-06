@@ -38,12 +38,13 @@ headsepline, % Uncomment to get a line under the header
 
 \author{Fernando Julio Iglesias} % Tu nombre, se usa en la carátula y se puede usar el cualquier lugar del documento con el comando \authorname
 
-\director{Fernando Lichtschein (FI-UBA)} % El nombre del director, se usa en la carátula y se puede usar el cualquier lugar del documento con el comando \dirname
+\director{Ing. Fernando Lichtschein (FI-UBA)} % El nombre del director, se usa en la carátula y se puede usar el cualquier lugar del documento con el comando \dirname
 
 
 \juradoUNO{Nombre del jurado 1 (pertenencia)} % Nombre y pertenencia del un jurado se usa en la carátula y se puede usar el cualquier lugar del documento con el comando \jur1name
 \juradoDOS{Nombre del jurado 2 (pertenencia)} % Nombre y pertenencia del un jurado se usa en la carátula y se puede usar el cualquier lugar del documento con el comando \jur2name
 \juradoTRES{Nombre del jurado 3 (pertenencia)} % Nombre y pertenencia del un jurado se usa en la carátula y se puede usar el cualquier lugar del documento con el comando \jur3name
+
 
 \ciudad{Ciudad Autónoma de Buenos Aires}
 
@@ -70,7 +71,11 @@ headsepline, % Uncomment to get a line under the header
 %The Thesis Abstract is written here (and usually kept to just this page). The page is kept centered vertically so can expand into the blank space above the title too\ldots
 \centering
 
-Ante la falla de sistemas como el control de puertas o la cámara frontal de registro de accidentes viales, las formaciones ferroviarias activan automáticamente el corte de tracción y el freno de emergencia. En esas circunstancias la formación queda detenida y los pasajeros deben descender a las vías si la detención no se produce en una estación ferroviaria. En este trabajo se presenta el desarrollo para Trenes Argentinos de una arquitectura modular basada en el paradigma de Internet de las Cosas (IoT) que permite visualizar y gestionar los sistemas involucrados en esas situaciones.
+
+En la presente memoria se describe el desarrollo, para Trenes Argentinos, de una arquitectura modular basada en el paradigma de Internet de las Cosas (IoT) que permite visualizar y gestionar, por un supervisor u operario, las formaciones ferroviarias de forma remota desde una central operativa. De esta manera, se logra mejorar la seguridad, la eficiencia y aumentar la flexibilidad del sistema ferroviario.
+
+El sistema se trata de una solución fullstack embebida en donde se expone cada uno de los componentes de hardware y software involucrados. Entre los conocimientos aplicados se destacan el diseño de una arquitectura cliente-servidor, el diseño de una API GraphQL, la interacción con un broker de mensajes y la seguridad en las comuicaciones.
+
 
 \end{abstract}
 
@@ -78,13 +83,13 @@ Ante la falla de sistemas como el control de puertas o la cámara frontal de reg
 %	CONTENIDO DE LA MEMORIA  - AGRADECIMIENTOS
 %----------------------------------------------------------------------------------------
 
-\begin{acknowledgements}
-%\addchaptertocentry{\acknowledgementname} % Descomentando esta línea se puede agregar los agradecimientos al índice
-\vspace{1.5cm}
-
-Esta sección es para agradecimientos personales y es totalmente \textbf{OPCIONAL}.  
-
-\end{acknowledgements}
+%\begin{acknowledgements}
+%%\addchaptertocentry{\acknowledgementname} % Descomentando esta línea se puede agregar los agradecimientos al índice
+%\vspace{1.5cm}
+%
+%Esta sección es para agradecimientos personales y es totalmente \textbf{OPCIONAL}.  
+%
+%\end{acknowledgements}
 
 %----------------------------------------------------------------------------------------
 %	LISTA DE CONTENIDOS/FIGURAS/TABLAS
@@ -101,7 +106,7 @@ Esta sección es para agradecimientos personales y es totalmente \textbf{OPCIONA
 %	CONTENIDO DE LA MEMORIA  - DEDICATORIA
 %----------------------------------------------------------------------------------------
 
-\dedicatory{\textbf{Dedicado a... [OPCIONAL]}}  % escribir acá si se desea una dedicatoria
+%\dedicatory{\textbf{Dedicado a... [OPCIONAL]}}  % escribir acá si se desea una dedicatoria
 
 %----------------------------------------------------------------------------------------
 %	CONTENIDO DE LA MEMORIA  - CAPÍTULOS
@@ -136,20 +141,20 @@ Esta sección es para agradecimientos personales y es totalmente \textbf{OPCIONA
 %	BIBLIOGRAPHY
 %----------------------------------------------------------------------------------------
 
-%\Urlmuskip=0mu plus 1mu\relax
-%\raggedright
-%\printbibliography[heading=bibintoc]
+\Urlmuskip=0mu plus 1mu\relax
+\raggedright
+\printbibliography[heading=bibintoc]
 
-\begin{thebibliography}{00}
-
-\bibitem{b1} 'Sistema de supervisión de la seguridad del material
-ferroviario utilizando patrones de diseño', Ivan Mariano Di Vito, Pablo Gomez, Ariel Lutenberg, Libro de trabajos del CASE2019, Congreso Argetino de Sistemas Embebidos, Santa Fe, Argentina. (2019).
-
-\bibitem{b2} CONICET-GICSAFe (June 2022). [Online]. Disponible: \\ https://sites.google.com/view/conicet-gicsafe/inicio
-
-\bibitem{b3} Trenes Argentinos (June 2022). [Online]. Disponible: \\ https://www.argentina.gob.ar/transporte/trenes 
-
-\end{thebibliography}
+%\begin{thebibliography}{00}
+%
+%\bibitem{b1} 'Sistema de supervisión de la seguridad del material
+%ferroviario utilizando patrones de diseño', Ivan Mariano Di Vito, Pablo Gomez, Ariel Lutenberg, Libro de trabajos del CASE2019, Congreso Argetino de Sistemas Embebidos, Santa Fe, Argentina. (2019).
+%
+%\bibitem{b2} CONICET-GICSAFe (June 2022). [Online]. Disponible: \\ https://sites.google.com/view/conicet-gicsafe/inicio
+%
+%\bibitem{b3} Trenes Argentinos (June 2022). [Online]. Disponible: \\ https://www.argentina.gob.ar/transporte/trenes 
+%
+%\end{thebibliography}
 
 %----------------------------------------------------------------------------------------
 
