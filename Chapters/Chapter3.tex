@@ -2,24 +2,16 @@
 
 \label{Chapter3} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
 
-
+%--------------------------------------------------------------------------------------
 \section{Descripción del sistema}
 
+El \textit{SAL/T}, según sus siglas, Sistema de Aislamiento Limitado o Total \citep{salt-physical-paper}, es un sistema que le permite al conductor la activación y desactivación del modo aislado limitado. En este modo, el equipo permite la circulación de la formación al desactivar las señales de corte de tracción y freno de emergencia generadas por los otros subsistemas. Para que esta operación se realice de forma segura, se debe monitorear la velocidad de la formación tal que sea posible evitar que supere cierto valor máximo. Se considera un sistema crítico debido a que, en caso de fallar, puede ocasionar lesiones o muertes de personas, dañar el medio ambiente y/o generar grandes pérdidas materiales.
 
-\textbf{PARAFRASEAR EL PRIMER PARRAFO PORQUE SE REPITE CON LA MOTIVACION DEL PROYECTO !}
+En trabajos anteriores se han desarrollado las primeras cinco fases de catorce que componen el ciclo de vida según la norma \textit{UNE-EN 50126}, centradas en el relevamiento de la necesidad y la obtención de los requerimientos técnicos del sistema.
 
-El \textit{SAL/T}, según sus siglas, Sistema de Aislamiento Limitado o Total, es un sistema que le permitirá al conductor la activación y desactivación del modo aislado limitado. En este modo, el equipo permite la circulación de la formación al desactivar las señales de corte de tracción y freno de emergencia generadas por los otros subsistemas. Para que esta operación se realice de forma segura, se debe monitorear la velocidad de la formación tal que sea posible evitar que supere cierto valor máximo. 
-Se considera un sistema crítico debido a que, en caso de fallar, puede ocasionar lesiones o muertes de personas, dañar el medio ambiente y/o generar grandes pérdidas materiales.
+En esta oportunidad, tal como se puede observar en el margen inferior derecho de la figura 1, se plantea el desarrollo de una central operativa. Se trata de una plataforma web que cuenta con una unidad lógica de compartición y empaquetado de software posibilitando la administación, la configuración y el monitoreo en tiempo real de la información recibida y transmitida por parte de cada dispositivo \textit{SAL/T}. 
 
-En trabajos anteriores se desarrollaron las primeras cinco fases de catorce que componen el ciclo de vida según la norma \textit{UNE-EN 50126}, centradas en el relevamiento de la necesidad y la obtención de los requerimientos técnicos del sistema.
-
-En la actualidad, existe un prototipo de este sistema que fue finalizado en el año 2019, del cual, en lo que respecta al \textit{firmware}, se propone realizar la migración a un microcontrolador de la familia \textit{Cortex} tipo M con mayor soporte al actual y que cuente con funcionalidades de seguridad.  
-
-Por otro lado, tal como se puede observar en el margen inferior derecho de la figura 1, se plantea el desarrollo de una central operativa. Se trata de una plataforma web que cuenta con una unidad lógica de compartición y empaquetado de software posibilitando la administación, la configuración y el monitoreo en tiempo real de la información recibida y transmitida por parte de cada dispositivo SAL/T. 
-
-
-\newpage
-En caso de ser necesario, a partir de la activación de una señal crítica provista por el artefacto \textit{Hasler} \footnote{ es un sistema electromecánico que registra los eventos de velocidad del material rodante, la señal de anuncio y la señal de frenado automático.
+En caso de ser necesario, a partir de la activación de una señal crítica provista por el artefacto \textit{Hasler} \footnote{ Es un sistema electromecánico que registra los eventos de velocidad del material rodante, la señal de anuncio y la señal de frenado automático.
 }  que se encuentra instalado en cada formación ferroviaria, un operario puede accionar alguno de los comandos que se listan a continuación:
 
 
@@ -37,9 +29,9 @@ En caso de ser necesario, a partir de la activación de una señal crítica prov
 \end{itemize}
 
 
-Para el seguimiento de las variables, publicadas por cada dispositivo SAL/T, que permiten la visualización en la plataforma, se realiza la suscripción a un tópico del \textit{broker} \textit{MQTT} y se registra la información indexada en la base de datos de un servidor. En consecuencia, resulta de extrema importancia que la comunicación a través de \textit{MQTT} opere sobre el protocolo de encriptación \textit{SSL/TSL}, de modo que se exponga un considerable nivel de seguridad; de igual manera, es necesaria la utilización de certificados para el acceso a la lectura y la escritura en la base de datos.  
+Para el seguimiento de las variables, publicadas por cada dispositivo \textit{SAL/T}, que permiten la visualización en la plataforma, se realiza la suscripción a un tópico del \textit{broker} \textit{MQTT} y se registra la información indexada en la base de datos de un servidor. En consecuencia, resulta de extrema importancia que la comunicación a través de \textit{MQTT} opere sobre el protocolo de encriptación \textit{SSL/TSL}, de modo que se exponga un considerable nivel de seguridad; de igual manera, es necesaria la utilización de certificados para el acceso a la lectura y la escritura en la base de datos.  
 
-Así mismo, es necesario que la página web ofrezca la configuración de los parámetros de cada dispositivo conectado a la formación ferroviaria, la administración de los roles y la autenticación de los usuarios.
+Así mismo, la página web ofrece la configuración de los parámetros de cada dispositivo conectado a la formación ferroviaria, la administración de los roles y la autenticación de los usuarios.
 
 \begin{figure}[htpb]
 \centering 
@@ -48,37 +40,26 @@ Así mismo, es necesario que la página web ofrezca la configuración de los par
 \label{fig:diagBloques}
 \end{figure}
 
-\subsection{Comunicación device y backend}
 
-MQTT
-
-Ver cuanto se repite con el ultimo parrafo de arriba.
-
-\subsection{Comunicación backend y frontend}
-
-HTTP
-
-Ver cuanto se repite con el ultimo parrafo de arriba.
-
-
+%--------------------------------------------------------------------------------------
+\newpage
 \section{Arquitectura del sistema}
 
-
-\textbf{PARAFRASEAR EL PRIMER PARRAFO PORQUE SE REPITE CON LA MOTIVACION DEL PROYECTO !}
-
-A partir de los modelos más relevantes que se encuentran establecidos para el desarrollo e implementación de aplicaciones de software se consideran el \textit{stack web} y el \textit{stack IoT}. A pesar de las similitudes entre ambos, en la aplicación el \textit{stack web} emplea el protocolo \textit{HTTP} mientras que el \textit{stack IoT} utiliza el protocolo \textit{MQTT}; siendo este último el más adecuado para escenarios donde son limitados los recursos como el ancho de banda y el consumo de energía.
-
-En especial, el protocolo \textit{MQTT} dispone de mensajes más livianos y además es posible transmitir y/o recibir datos en formato binario sin la necesidad de una codificación previa. También, este protocolo permite asignar niveles de calidad de servicio (\textit{QoS}) a los mensajes transmitidos, resultando una característica primordial en aplicaciones donde la probabilidad de pérdidas de paquetes es considerable.
-
-La \textbf{figura X} presenta la estratificación de las capas, según el \textit{stack IoT}, que son detalladas a lo largo de esta sección.
+En este apartado se ahonda en la estratificación del \textit{stack IoT}, como se puede ver en la figura \ref{fig:salt-architecture}, que se compone de varias capas que cumplen funciones específicas en el ámbito de los sistemas \textit{IoT}. Se analiza, de este modo, cómo se relacionan las diferentes tecnologías que se utilizan en cada capa, y cómo se aprovechan estas interacciones para obtener soluciones integral y escalable. 
 
 
-\textbf{AGREGAR NUEVA FIGURA SUPER GENERAL DEL STACK IOT CON SUS CAPAS}
+\begin{figure}[htpb]
+  \centering 
+  \includegraphics[width=.75\textwidth]{Figures/cuadro.jpg}
+  \caption{Arquitectura de la Central Operativa SAL/T.}
+  \label{fig:salt-architecture}
+\end{figure}
 
 
 \subsection{Capa de dispositivos}
 
 Sobre la base de un prototipo del Sistema de Aislamiento Limitado o Total, \textit{SAL/T}, se desarrolló mediante el kit de desarrollo \textit{Nucleo F429} \citep{nucleo-kit}, un cliente \textit{MQTT} que permite la publicación de la velocidad de la formación y de los parámetros provistos por los subsistemas de falla, entre otras variables; y llegado el caso, el dispositivo pueda realizar la lectura de diferentes parámetros configurables.
+
 
 \subsection{Capa de conectividad}
 
@@ -89,16 +70,16 @@ Dado que los mensajes intercambiados entre las partes contienen información sen
 
 \subsection{Capa de almacenamiento}
 
-La capa de almacenamiento se encuentra constituida por el sistema distribuido \textit{Kafka} que se encarga de almacenar los datos de la aplicación. Entre ellos se destacan los mensajes MQTT enviados por los dispositivos SAL/T, como también la información referida a las formaciones y a los SAL/T que las ocupan. Además, se tienen servicios de procesamiento de datos que se encargan de adaptar la información de los tópicos en datos que posteriormente serán consumidos por los servicios que integran la capa superior.
+La capa de almacenamiento se encuentra constituida por el sistema distribuido \textit{Kafka} que se encarga de almacenar los datos de la aplicación. Entre ellos se destacan los mensajes \textit{MQTT} enviados por los dispositivos \textit{SAL/T}, como también la información referida a las formaciones y a los \textit{SAL/T} que las ocupan. Además, se tienen servicios de procesamiento de datos que se encargan de adaptar la información de los tópicos en datos que posteriormente serán consumidos por los servicios que integran la capa superior.
 
 Por otro lado, se tiene una base de datos relacional \textit{PostgreSQL} para el almacenamiento de los datos provenientes del servicio de autenticación y el motor que facilita la interacción con la plataforma web. Los conectores se encargan de insertar los datos que se quieran disponer a la capa de visualización.
 
-
-En la figura \textbf{devicesTrainEntity} se observa el modelo de datos que representa a los dispositivos SAL/T, las formaciones y las entidades. 
+En la figura \textbf{devicesTrainEntity} se observa el modelo de datos que representa a los dispositivos \textit{SAL/T}, las formaciones y las entidades. 
 El primero cuenta con un identificador del dispositivo en el sistema, el estado de operación y una referencia al tren en el que se desplegó el artefacto. 
 El modelo de la formación está enriquecido con la entidad a la que pertenece y el número de serie del tren. 
 Por último, las entidades están compuestas por nombre y descripción.
-En la figura \textbf{devicesSubsystems} se aprecian los subsistemas de fallas relacionados con el dispositivo SAL/T. Su modelo está integrado con el nombre del subsistema, el identificador del dispositivo al que está asociado y el estado actual del mismo. 
+En la figura \textbf{devicesSubsystems} se aprecian los subsistemas de fallas relacionados con el dispositivo \textit{SAL/T}. Su modelo está integrado con el nombre del subsistema, el identificador del dispositivo al que está asociado y el estado actual del mismo. 
+
 
 \subsection{Capa de interacción}
 
@@ -114,11 +95,12 @@ En esta capa se ha utilizado el lenguaje de programación \textit{TypeScript} ju
 En la figura \textbf{dashboard} se puede apreciar el panel de control de la central operativa al que tendrán acceso los operadores de cada entidad.
 En el mismo se observan distintas tarjetas con el estado de cada subsistema de fallas y del tren, como así también un velocímetro que informa la velocidad de la formación.
 
+
+%--------------------------------------------------------------------------------------
 \newpage
 \section{Arquitectura de datos}
 
-Para crear la estructura de la base de datos SQL, se realiza un análisis detallado del sistema y se identifican las principales entidades: la formación ferroviaria, los subsistemas de falla y las áreas. Toda la información de estas entidades se nuclea en la entidad tren, la cual representa una formación ferroviaria con todos sus subsistemas y áreas asociadas. A partir del modelado de estas entidades y sus atributos correspondientes, se definen las relaciones entre ellas y se establecen las claves primarias y foráneas.
-
+La estructura de la base de datos \textit{SQL} se realiza a partir de un análisis detallado del sistema en el que se identifican las principales entidades: la formación ferroviaria, los subsistemas de falla y las áreas. Toda la información de estas entidades se nuclea en la entidad tren, la cual representa una formación ferroviaria con todos sus subsistemas y áreas asociadas. En efectp, el modelado de estas entidades y sus atributos correspondientes, se definen las relaciones entre ellas y se establecen las claves primarias y foráneas.
 
 Para visualizar de manera más clara la estructura de la base de datos y sus relaciones, se utiliza el diagrama UML (Lenguaje de Modelado Unificado). En la siguiente figura se muestra el diagrama UML de la base de datos, donde se pueden observar las diferentes entidades, sus atributos y relaciones. A partir de este diagrama se procede a crear las tablas en la base de datos SQL y a definir sus columnas y restricciones, garantizando así la integridad de los datos y el correcto funcionamiento del sistema.
 
@@ -128,20 +110,16 @@ Para visualizar de manera más clara la estructura de la base de datos y sus rel
 
 
 \subsection{Entidades del modelo de datos}
-
-
-\textbf{COMENTAR SI ES QUE LAS HAY, PARTICULARIDADES SOBRE CADA UNA DE LAS ETIDADES DEL SISTEMA Y CADA TABLA DEL DIAGRAMA UML}
-
  
 \subsubsection{Schema auth\_service}
 
 \begin{itemize}
 
-\item \textbf{credentials}: Esta tabla almacena las credenciales de los usuarios para acceder al sistema. Tiene una clave foránea a la tabla \textbf{auth\_service users} y es referenciada por la tabla \textbf{auth\_service roles}.
+  \item \textbf{credentials}: Esta tabla almacena las credenciales de los usuarios para acceder al sistema. Tiene una clave foránea a la tabla \textbf{auth\_service users} y es referenciada por la tabla \textbf{auth\_service roles}.
 
-\item \textbf{roles}: Esta tabla almacena los roles de los usuarios. Tiene una clave foránea a la tabla \textbf{auth\_service users} y es referenciada por la tabla \textbf{enums roles}.
+  \item \textbf{roles}: Esta tabla almacena los roles de los usuarios. Tiene una clave foránea a la tabla \textbf{auth\_service users} y es referenciada por la tabla \textbf{enums roles}.
 
-\item \textbf{users}: Esta tabla almacena la información básica de los usuarios del sistema. Es referenciada por la tabla \textbf{auth\_service credentials} y la tabla \textbf{public users}.
+  \item \textbf{users}: Esta tabla almacena la información básica de los usuarios del sistema. Es referenciada por la tabla \textbf{auth\_service credentials} y la tabla \textbf{public users}.
 
 \end{itemize}
 
@@ -165,102 +143,145 @@ Para visualizar de manera más clara la estructura de la base de datos y sus rel
 
 \begin{itemize}
 
-\item \textbf{devices}: Esta tabla almacena información sobre los dispositivos del sistema. Tiene una clave foránea a la tabla \textbf{public train} y es referenciada por la tabla \textbf{public remote events} y la tabla \textbf{public internal events}.
+  \item \textbf{devices}: Esta tabla almacena información sobre los dispositivos del sistema. Tiene una clave foránea a la tabla \textbf{public train} y es referenciada por la tabla \textbf{public remote events} y la tabla \textbf{public internal events}.
 
-\item \textbf{entities}: Esta tabla almacena información sobre las entidades del sistema. Es referenciada por la tabla \textbf{public train}.
+  \item \textbf{entities}: Esta tabla almacena información sobre las entidades del sistema. Es referenciada por la tabla \textbf{public train}.
 
-\item \textbf{internal events}: Esta tabla almacena información sobre los eventos internos del sistema. Tiene claves foráneas a las tablas \textbf{public devices}, \textbf{enums events} y \textbf{public users}.
+  \item \textbf{internal events}: Esta tabla almacena información sobre los eventos internos del sistema. Tiene claves foráneas a las tablas \textbf{public devices}, \textbf{enums events} y \textbf{public users}.
 
-\item \textbf{remote events}: Esta tabla almacena información sobre los eventos remotos del sistema. Tiene una clave foránea a la tabla \textbf{public devices} y es referenciada por la tabla \textbf{enums fail system}.
+  \item \textbf{remote events}: Esta tabla almacena información sobre los eventos remotos del sistema. Tiene una clave foránea a la tabla \textbf{public devices} y es referenciada por la tabla \textbf{enums fail system}.
 
-\item \textbf{subsystems}: Esta tabla almacena información sobre los subsistemas del sistema. Tiene una clave foránea a la tabla \textbf{public devices} y es referenciada por la tabla \textbf{enums fail system}.
+  \item \textbf{subsystems}: Esta tabla almacena información sobre los subsistemas del sistema. Tiene una clave foránea a la tabla \textbf{public devices} y es referenciada por la tabla \textbf{enums fail system}.
 
-\item \textbf{train}: Esta tabla almacena información sobre los trenes del sistema. Tiene una clave foránea a la tabla \textbf{public entities} y es referenciada por la tabla \textbf{public devices}.
+  \item \textbf{train}: Esta tabla almacena información sobre los trenes del sistema. Tiene una clave foránea a la tabla \textbf{public entities} y es referenciada por la tabla \textbf{public devices}.
 
-\item \textbf{user data}: Esta tabla almacena información adicional de los usuarios del sistema. Es referenciada por la tabla \textbf{public users}.
+  \item \textbf{user data}: Esta tabla almacena información adicional de los usuarios del sistema. Es referenciada por la tabla \textbf{public users}.
 
-\item \textbf{users}: tabla que contiene información de los usuarios. Tiene una relación de clave externa con la tabla entities.
-
+  \item \textbf{users}: tabla que contiene información de los usuarios. Tiene una relación de clave externa con la tabla entities.
 
 \end{itemize}
 
 
 
-
-
-
 \section{Seguridad del sistema}
 
-\subsection{Protocolo HTTPS}
+En la actualidad, la seguridad en los protocolos de comunicación es una preocupación constante en el mundo digital. Con el creciente número de amenazas cibernéticas y la sofisticación de los ataques, es esencial que los protocolos de comunicación sean lo más seguros posible. Es fundamental que los protocolos de comunicación se desarrollen y se implementen con medidas de seguridad adecuadas para garantizar la privacidad y la integridad de los datos transmitidos.
 
-security layer
 
-jwt
+\subsection{JWT}
 
-\textbf{Referencia - pag 44}
-https://lse-posgrados-files.fi.uba.ar/tesis/LSE-FIUBA-Trabajo-Final-CEIoT-Pedro-Rosito-2021.pdf
+JWT (JSON Web Token) es un estándar de token de seguridad que se utiliza para autenticar y autorizar a los usuarios en aplicaciones web y móviles. Dentro del protocolo HTTP, JWT se utiliza como un mecanismo de autenticación para permitir el acceso seguro a recursos protegidos.
+
+Para utilizar JWT en HTTP, primero se debe generar un token JWT en el servidor después de que el usuario se autentica correctamente. Este token se envía de vuelta al cliente como respuesta a la solicitud de autenticación.
+
+Luego, para acceder a recursos protegidos, el cliente debe incluir el token JWT en la solicitud HTTP en la cabecera de autorización. La cabecera de autorización tiene el prefijo "Bearer" seguido del token JWT. De esta manera, el servidor puede verificar la validez del token y si el usuario tiene los permisos necesarios para acceder a la información solicitada.
+
+Una vez que el servidor valida el token JWT y verifica que el usuario tiene los permisos necesarios, puede enviar la respuesta solicitada al cliente. Si el token no es válido o ha expirado, el servidor puede denegar el acceso al recurso solicitado.
+
+En resumen, JWT se utiliza dentro del protocolo HTTP como un mecanismo de autenticación seguro para permitir el acceso a recursos protegidos. Al utilizar JWT, se puede evitar la necesidad de mantener una sesión persistente en el servidor y se puede compartir información de usuario entre diferentes servicios sin la necesidad de almacenarla en el servidor.
 
 
 \subsection{MQTT v5.0}
 
-payload encryption
+En la última versión del protocolo de mensajería \textit{MQTT}, la versión 5.0, se incluyen varias mejoras en términos de seguridad en comparación con versiones anteriores, lo que lo hace más seguro y confiable para su uso en entornos \textit{IoT} y \textit{M2M}.
+
+Una de las mejoras más importantes en \textit{MQTT v5.0} es la inclusión de un mecanismo de autenticación mejorado. Ahora, el cliente y el servidor pueden autenticarse mutuamente utilizando certificados y credenciales de usuario. Esto ayuda a prevenir ataques de suplantación de identidad y a garantizar que solo los usuarios autorizados puedan acceder al servidor \textit{MQTT}.
+
+Otra mejora importante en \textit{MQTT v5.0} es el soporte para \textit{TLS 1.3}, la última versión del protocolo de seguridad de transporte. \textit{TLS 1.3} ofrece un cifrado más fuerte y un intercambio de claves más seguro que las versiones anteriores, lo que ayuda a proteger los datos transmitidos contra ataques de escucha y manipulación.
+
+\textit{MQTT v5.0} también introduce la capacidad de establecer límites de tamaño máximo de paquete, lo que ayuda a prevenir ataques de inundación de paquetes que pueden afectar la disponibilidad del servidor \textit{MQTT}.
+
+Además, la versión 5.0 de \textit{MQTT} también incluye la capacidad de definir propiedades adicionales en los mensajes \textit{MQTT}, lo que permite a los clientes y servidores intercambiar información adicional sobre los mensajes, como la hora en que se creó el mensaje o su nivel de prioridad.
 
 
-
+%------------------------------------------------------------------------
+\newpage
 \section{Desarrollo del frontend}
 
-\textbf{AGREGAR UNA BREVE INTRO SOBRE QUE SE EXPONDRA AQUI}
-\textit{tipos de clientes, apollo client, codegen, }
-
-\subsection{Estructura del cliente web}
-
-\begin{enumerate}
-
-  \item index html
-
-  \item main tsx 
-
-  \item react router -> pages
-
-\end{enumerate}
+En esta sección, se aborda la estructura de la aplicación web, incluyendo la organización de sus componentes y la relación entre ellos. Además, se analizan los diferentes roles que pueden tener los usuarios de una aplicación y cómo afectan a la funcionalidad de la misma. Por último, se describe la implementación del cliente web y los clientes que se ven involucrados en cada etapa. 
 
 
-\subsection{Páginas}
+\subsection{Estructura de la aplicación web}
 
-\textbf{HABLAR DE CADA PAGINA A PARTIR DE UNA IMAGEN DONDE SE MUESTRE EL SIDEBAR}
+La estructura de la aplicación se inspira en la herramienta \textit{Create React App} \footnote{\url{https://create-react-app.dev/}}, que postula una estructura de archivos predefinida para crear aplicaciones web con React. En efecto, se plasman un conjunto de convenciones y buenas prácticas que permiten organizar el código de una forma clara y fácilmente escalable.
+
+La organización de archivos, utilizando \texit{Typescript} y \textit{inline JSS}, consta de los siguiente elementos:
+
+\begin{itemize}
+
+  \item La carpeta \textit{"public"}, que contiene los archivos \textit{HTML} y otros recursos que se deben servir estáticamente al navegador.
+
+  \item La carpeta \textit{"src"}, que es el directorio principal de la aplicación y contiene los archivos de código fuente. Dentro de esta carpeta se encuentra:
+
+    \begin{itemize}
+
+      \item Los archivos de configuración, como \texit{"index.tsx"} y \textit{"App.tsx"}, que se encargan de inicializar la aplicación y definir su estructura básica, utilizando la sintaxis de \textit{Typescript}.
+  
+      \item Los componentes de la aplicación, organizados en subdirectorios según su funcionalidad. Cada componente suele estar formado por un archivo \textit{".tsx"} en la que define su lógica y un archivo de extensión \textit{".ts"} que define el procesamiento de la información previo a su renderización.
+
+      \item Otros recursos, como imágenes, fuentes o archivos JSON que se utilizan en la aplicación.
+
+    \end{itemize}
+
+  \item La carpeta \texit{"node\_modules"}, que contiene todas las dependencias de la aplicación.
+
+  \item Los archivos \textit{"package.json"} y \textit{"package-lock.json"}, que definen la configuración y las dependencias del proyecto.
+
+  \item Otros archivos de configuración, como \texit{".gitignore"} o \texit{".env"}, que se utilizan para personalizar la configuración de la aplicación.
+
+\end{itemize}
+
+
+\subsection{Roles}
+
+La aplicación web cuenta con una estructura de roles que determinan los permisos y acciones que los usuarios pueden realizar en la plataforma. En total, se establecen cuatro roles, que se listan a continuación:
+
+\begin{itemize}
+
+  \item \textbf{Visitante:} Este rol tiene los permisos más limitados en la plataforma y se le permite tan solo registrarse o ingresar al sistema.
+
+  \item \textbf{Operador:} Las principales tareas del operador se centran en visualizar y/o controlar una o más formaciones ferroviarias, a través de un panel de control, asociadas a una entidad.
+
+  \item \textbf{Supervisor:} Es aquel que asigna el \textit{SAL/T} a una formación ferroviaria y a un operador. Además, tiene el control absoluto de todas las formaciones correspondientes a una entidad.
+
+  \item \textbf{Súper usuario:} Este es el rol con mayores permisos en la plataforma, y quien se responsabiliza de observar las tres entidades de la plataforma y a la asignación de supervisores a cada entidad, entre otras acciones disponibles en la plataforma.
+
+\end{itemize}
+
+Cada uno de estos roles se diseña para brindar distintos niveles de acceso y control en la plataforma, según las necesidades y responsabilidades de los usuarios en cuestión. Con esta estructura de roles, se busca garantizar la seguridad y privacidad de los datos y acciones de los usuarios.
+
+
+\subsection{Modelo}
+
+
+\textbf{ESCRIBIR ACERCA DEL MODELADO DE DATOS EN LA PLATAFORMA WEB}
+
+
+\subsection{Implementación de la plataforma}
+
+La plataforma consiste en un conjunto de páginas que se desarrollan con la biblioteca \textit{React Router DOM} \footnote{\url{https://reactrouter.com/en/main}}. La misma facilita la navegación y el enrutamiento de la aplicación web de una sola página.
+
+En consecuencia, se presentan las principales páginas de la página web con sus rutas asoaciadas y componentes asociados:
+
+
 
 \textit{dashboard, sign in, configuration, entities, trains, subsystems of each train, logs, etc}
 
-\subsubsection{Login}
+Login: \textbf{hablar sobre la interacción con jwt} \textit{Referecia - bastian pag 48} \textbf{add figure}
 
-\textbf{hablar sobre jwt}
-\textit{Referecia - bastian pag 48}
+Tabla de trenes+salt: \textbf{add figure}
 
-\textbf{add figure}
+Tabla de usuarios: \textbf{add figure}
 
+Dashboard: \textbf{add figure}
 
-\subsubsection{Tabla de trenes+salt}
-
-\textbf{add figure}
-
-
-\subsubsection{Tabla de usuarios}
-
-\textbf{add figure}
-
-
-\subsubsection{dashboard}
-
-\textbf{add figure}
-
-\subsection{Modales}
-
-\textit{crear: usuario, tren, dispositivo ; configuracion: sub sistemas de seguridad, etc}
+Modales: \textit{crear: usuario, tren, dispositivo ; configuracion: sub sistemas de seguridad, etc}
 
 
 
 
-
+%------------------------------------------------------------------------
+\newpage
 \section{Desarrollo del backend}
 
 
@@ -337,9 +358,9 @@ A partir del uso de archivo docker-compose, que se ejecuta en un entorno Docker,
   \item https://github.com/nandroidj/app-fullstack-base-2021-1c
     \\ \textit{Detalles de implementación -> Ver los endpoints disponibles}
 
-  \item https://www.notion.so/briken/KoyweTransaction-8d9ba1eda4664819a30378c3548ebacf?pvs=4
+  %\item https://www.notion.so/briken/KoyweTransaction-8d9ba1eda4664819a30378c3548ebacf?pvs=4
 
-  \item https://www.notion.so/briken/User-2ad1013d829548d0a7e992e31e53f7df?pvs=4
+  %\item https://www.notion.so/briken/User-2ad1013d829548d0a7e992e31e53f7df?pvs=4
 
 \end{itemize}
 

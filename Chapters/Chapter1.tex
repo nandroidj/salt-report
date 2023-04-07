@@ -40,21 +40,14 @@ En el sector ferroviario, la IoT ha demostrado ser una tecnología clave para me
 %	\label{fig:dashboard}
 %\end{figure}
 
-
+\newpage
 \section{Motivación}
 
 El sistema ferroviario de la República Argentina cuenta con una gran cantidad de formaciones ferroviarias en las que se encuentran diferentes sistemas de seguridad a bordo. Estos equipos se encargan de supervisar el correcto funcionamiento de los subsistemas críticos. Ante una falla en uno de los subsistemas, una formación ferroviaria se detiene inmediatamente por la activación automática de las señales de corte de tracción (\textit{CT}) y freno de emergencia (\textit{FE}). En esta situación, el conductor debe llevar la formación a un lugar seguro para que los pasajeros puedan descender y, posteriormente, trasladarla a un taller para que pueda ser reparada.
 
-El \textit{SAL/T}, según sus siglas, Sistema de Aislamiento Limitado y Total \citep{salt-physical-paper}, es un dispositivo del cual se cuenta con una primera versión prototipada; que se presenta como solución a las contingencias descritas anteriormente. De esta manera, el maquinista de una formación ferroviaria cuenta con la posibilidad de activar y desactivar el \textit{modo aislado limitado}. En este modo, el equipo permite la circulación de la formación al desactivar las señales de corte de tracción y freno de emergencia generadas por los subsistemas críticos. Para que esta operación se complete de forma segura, se debe monitorear la velocidad de la formación tal que sea posible garantizar que no se supere cierto valor máximo.
-
-A partir del desarrollo previo del prototipo, se presentan los avances en la implementación de una central operativa que centraliza los dispositivos \textit{SAL/T} para su respectiva administración, configuración y monitoreo en tiempo real de la información recibida y transmitida desde una plataforma digital. El trabajo se desarrolla por \textit{CONICET-GICSAFe} \citep{gicsafe} para la empresa Trenes Argentinos \citep{trenes-argentinos}.
-
-Los subsistemas asociados al \textit{SAL/T}, como la seguridad de puertas, el sistema de hombre vivo y la protección de coche a la deriva, son críticos debido a que, en caso de fallar, pueden ocasionar lesiones o muertes de personas e incluso generar pérdidas materiales. 
-
-La central operativa permite la administración y configuración en forma remota de los dispositivos de supervisión de seguridad de cada formación ferroviaria, la visualización de los diferentes parámetros de interés involucrados por las personas asignadas dentro de una entidad y de este modo es posible optimizar la toma de decisiones. 
+En efecto, por parte de \textit{CONICET-GICSAFe} \citep{gicsafe} para la empresa Trenes Argentinos \citep{trenes-argentinos}, se propone desarrollar una central operativa tal que se puede administrar y configurar de forma remota los dispositivos de supervisión de seguridad de cada formación ferroviaria, la visualización de los diferentes parámetros de interés involucrados por las personas asignadas dentro de una entidad y de este modo sea posible optimizar la toma de decisiones.
 
 
-\newpage
 \section{Estado del arte}
 
 A partir del análisis en las últimas tendencias referidas a la Central Operativa \textit{SAL/T}, se listan aquellas herramientas, de gestión y control de dispositivos de seguridad en el sector ferroviario, que presentan características similares al producto propuesto,
@@ -72,6 +65,7 @@ A partir del análisis en las últimas tendencias referidas a la Central Operati
 \end{enumerate}
 
 
+\newpage
 \section{Alcance y objetivos}
 
 El sistema resultante de este trabajo se encuentra destinado al desarrollo del software para una central operativa que permite administrar y configurar de forma remota dispositivos de supervisión de seguridad de formaciones ferroviarias denominados \textit{SAL/T} (Sistema de Aislamiento Limitado/Total). 

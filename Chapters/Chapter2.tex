@@ -37,21 +37,19 @@ Cabe destacar que ambos modelos se encuentran diseñados para sistemas con recur
 %----------------------------------------------------------------------------------------
 \section{Tecnologías \textit{full-stack}}
 
-A partir de los modelos más relevantes que se encuentran establecidos para el desarrollo e implementación de aplicaciones de software se consideran el \textit{stack web} y el \textit{stack IoT}. A pesar de las similitudes entre ambos, en la aplicación el \textit{stack web} emplea el protocolo \textit{HTTP} mientras que el \textit{stack IoT} utiliza el protocolo \textit{MQTT}; siendo este último el más adecuado para escenarios donde son limitados los recursos como el ancho de banda y el consumo de energía.
+A partir de los modelos más relevantes que se encuentran establecidos para el desarrollo e implementación de aplicaciones de software se consideran el \textit{stack web} y el \textit{stack IoT}, tal como se puede ver en la figura \ref{fig:diagBloques}. A pesar de las similitudes entre ambos, en la aplicación el \textit{stack web} emplea el protocolo \textit{HTTP} mientras que el \textit{stack IoT} utiliza el protocolo \textit{MQTT}; siendo este último el más adecuado para escenarios donde son limitados los recursos como el ancho de banda y el consumo de energía.
 
 En especial, el protocolo \textit{MQTT} dispone de mensajes más livianos y además es posible transmitir y/o recibir datos en formato binario sin la necesidad de una codificación previa. También, este protocolo permite asignar niveles de calidad de servicio (\textit{QoS} \footnote{\url{https://www.ibm.com/docs/en/i/7.2?topic=services-quality-service}}) a los mensajes transmitidos, resultando una característica primordial en aplicaciones donde la probabilidad de pérdidas de paquetes es considerable.
 
-La figura 1 presenta la estratificación de las capas, según el \textit{stack IoT}, que son detalladas a lo largo de esta sección.
 
 \begin{figure}[htpb]
   \centering 
-  \includegraphics[width=.75\textwidth]{Figures/cuadro.jpg}
+  \includegraphics[width=.4\textwidth]{Figures/tcp-ip-stack.png}
   \caption{Arquitectura de la Central Operativa SAL/T.}
   \label{fig:diagBloques}
 \end{figure}
 
 
-\newpage
 \subsection{Tecnologías del \textit{front-end}}
 
 \subsubsection{TypeScript}
@@ -85,7 +83,6 @@ JWT Decode \citep{jwt-decode} es una biblioteca JavaScript que decodifica tokens
 
 
 %----------------------------------------------------------------------------------------
-\newpage
 \subsection{Tecnologías del \textit{backend}}
 
 
@@ -120,7 +117,6 @@ Mosquitto \citep{mosquitto} es un broker MQTT de código abierto utilizado en Io
 
 
 %----------------------------------------------------------------------------------------
-\newpage
 \subsection{Tecnologías del \textit{firmware}}
 
 
@@ -140,7 +136,7 @@ Paho \citep{paho-mqtt} es una biblioteca cliente MQTT de código abierto que se 
 
 
 %----------------------------------------------------------------------------------------
-\subsection{Herramientas utilizadas}
+\section{Herramientas utilizadas}
 
 
 \subsubsection{Docker}
