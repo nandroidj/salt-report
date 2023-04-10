@@ -1,0 +1,171 @@
+%------------------------------------------------------------------------
+\newpage
+\section{Desarrollo del frontend}
+
+En esta sección, se aborda la estructura de la aplicación web, incluyendo la organización de sus componentes y la relación entre ellos. Además, se analizan los diferentes roles que pueden tener los usuarios de una aplicación y cómo afectan a la funcionalidad de la misma. Por último, se describe la implementación del cliente web y los clientes que se ven involucrados en cada etapa. 
+
+
+\subsection{Estructura de la aplicación web}
+
+La estructura de la aplicación se inspira en la herramienta \textit{Create React App} \footnote{\url{https://create-react-app.dev/}}, que postula una estructura de archivos predefinida para crear aplicaciones web con React. En efecto, se plasman un conjunto de convenciones y buenas prácticas que permiten organizar el código de una forma clara y fácilmente escalable.
+
+La organización de archivos, utilizando \texit{Typescript} y \textit{inline JSS}, consta de los siguiente elementos:
+
+\begin{itemize}
+
+  \item La carpeta \textit{"public"}, que contiene los archivos \textit{HTML} y otros recursos que se deben servir estáticamente al navegador.
+
+  \item La carpeta \textit{"src"}, que es el directorio principal de la aplicación y contiene los archivos de código fuente. Dentro de esta carpeta se encuentra:
+
+    \begin{itemize}
+
+      \item Los archivos de configuración, como \texit{"index.tsx"} y \textit{"App.tsx"}, que se encargan de inicializar la aplicación y definir su estructura básica, utilizando la sintaxis de \textit{Typescript}.
+  
+      \item Los componentes de la aplicación, organizados en subdirectorios según su funcionalidad. Cada componente suele estar formado por un archivo \textit{".tsx"} en la que define su lógica y un archivo de extensión \textit{".ts"} que define el procesamiento de la información previo a su renderización.
+
+      \item Otros recursos, como imágenes, fuentes o archivos JSON que se utilizan en la aplicación.
+
+    \end{itemize}
+
+  \item La carpeta \texit{"node\_modules"}, que contiene todas las dependencias de la aplicación.
+
+  \item Los archivos \textit{"package.json"} y \textit{"package-lock.json"}, que definen la configuración y las dependencias del proyecto.
+
+  \item Otros archivos de configuración, como \texit{".gitignore"} o \texit{".env"}, que se utilizan para personalizar la configuración de la aplicación.
+
+\end{itemize}
+
+
+\subsection{Roles}
+
+La aplicación web cuenta con una estructura de roles que determinan los permisos y acciones que los usuarios pueden realizar en la plataforma. En total, se establecen cuatro roles, que se listan a continuación:
+
+\begin{itemize}
+
+  \item \textbf{Visitante:} Este rol tiene los permisos más limitados en la plataforma y se le permite tan solo registrarse o ingresar al sistema.
+
+  \item \textbf{Operador:} Las principales tareas del operador se centran en visualizar y/o controlar una o más formaciones ferroviarias, a través de un panel de control, asociadas a una entidad.
+
+  \item \textbf{Supervisor:} Es aquel que asigna el \textit{SAL/T} a una formación ferroviaria y a un operador. Además, tiene el control absoluto de todas las formaciones correspondientes a una entidad.
+
+  \item \textbf{Súper usuario:} Este es el rol con mayores permisos en la plataforma, y quien se responsabiliza de observar las tres entidades de la plataforma y a la asignación de supervisores a cada entidad, entre otras acciones disponibles en la plataforma.
+
+\end{itemize}
+
+Cada uno de estos roles se diseña para brindar distintos niveles de acceso y control en la plataforma, según las necesidades y responsabilidades de los usuarios en cuestión. Con esta estructura de roles, se busca garantizar la seguridad y privacidad de los datos y acciones de los usuarios.
+
+
+\subsection{Modelo}
+
+
+\textbf{ESCRIBIR ACERCA DEL MODELADO DE DATOS EN LA PLATAFORMA WEB}
+
+
+\subsection{Implementación de la plataforma}
+
+La plataforma consiste en un conjunto de páginas que se desarrollan con la biblioteca \textit{React Router DOM} \footnote{\url{https://reactrouter.com/en/main}}. La misma facilita la navegación y el enrutamiento de la aplicación web de una sola página.
+
+En consecuencia, se presentan las principales páginas de la página web con sus rutas asoaciadas y componentes asociados:
+
+
+
+\textit{dashboard, sign in, configuration, entities, trains, subsystems of each train, logs, etc}
+
+Login: \textbf{hablar sobre la interacción con jwt} \textit{Referecia - bastian pag 48} \textbf{add figure}
+
+Tabla de trenes+salt: \textbf{add figure}
+
+Tabla de usuarios: \textbf{add figure}
+
+Dashboard: \textbf{add figure}
+
+Modales: \textit{crear: usuario, tren, dispositivo ; configuracion: sub sistemas de seguridad, etc}
+
+
+
+
+%------------------------------------------------------------------------
+\newpage
+\section{Desarrollo del backend}
+
+
+A partir del uso de archivo docker-compose, que se ejecuta en un entorno Docker, para proporcionar el conjunto completo de servicios para enviar, recibir y almacenar los datos a través de diferentes protocolos. Cada servicio se ejecuta en su propio contenedor y se conecta a los otros servicios según el siguiente formato:
+
+
+\textbf{AGREGAR IMAGEN DEL ENTORNO DOCKER CON SUS CONTENEDORES Y CONEXIONES }
+\url{https://www.gotoiot.com/pages/articles/docker_intro/index.html}
+\url{https://www.gotoiot.com/pages/articles/docker_intro/images/image2.png}
+
+
+\begin{itemize}
+
+  \item mosquitto: es un servidor MQTT de código abierto que se utiliza para enviar y recibir mensajes. Se utiliza la imagen "eclipse-mosquitto" y se mapea el puerto 1883 en el host al puerto 1883 en el contenedor. También se montan dos volúmenes, uno para la configuración del servidor y otro para los datos.
+
+  \item hasura: es un motor de GraphQL que proporciona una API para interactuar con una base de datos. Se utiliza la imagen "hasura/graphql-engine:v2.1.0" y se mapea el puerto 8080 en el host al puerto 8080 en el contenedor. Se configuran varias variables de entorno, incluyendo la URL de la base de datos y el secreto de administrador. También depende del servicio "postgres".
+
+  \item postgres: es una base de datos relacional que se utiliza para almacenar datos. Se utiliza la imagen "postgres:13" y se mapea el puerto 5432 en el host al puerto 5432 en el contenedor. Se configuran varias variables de entorno, incluyendo el nombre de la base de datos, el nombre de usuario y la contraseña. También se monta un volumen para almacenar los datos de la base de datos.
+
+  \item zookeeper: es un servicio que se utiliza para coordinar los nodos de Kafka. Se utiliza la imagen "confluentinc/cp-zookeeper:6.2.4" y se configura el puerto de cliente en 2181.
+
+  \item kafka: es un servicio de mensajería de código abierto que se utiliza para enviar y recibir mensajes. Se utiliza la imagen "confluentinc/cp-kafka:6.2.4" y se mapea el puerto 9092 en el host al puerto 9092 en el contenedor. Se configuran varias variables de entorno, incluyendo la conexión de Zookeeper y el número de réplicas de las particiones. También depende del servicio "zookeeper".
+
+  \item kafka-ui: es una interfaz de usuario para administrar y monitorear clústeres de Kafka. Se utiliza la imagen "provectuslabs/kafka-ui" y se mapea el puerto 8085 en el host al puerto 8080 en el contenedor. Se configuran varias variables de entorno, incluyendo la conexión al clúster de Kafka, el esquema de registro y el servidor de KSQLDB.
+
+\end{itemize}
+
+
+\subsubsection{Mosquitto Broker}
+
+\textbf{TALK ABOUT THE MOSQUITTO CONFIG FILE AND THE CLI INSTALLATION, USAGE, ETC.}
+
+
+\subsubsection{Hasura}
+
+\textbf{TALK ABOUT HASURA GUI, CLI AND USAGE. ADD AN EXAMPLE QUERY}
+
+
+\subsubsection{Kafka}
+
+\textbf{TALK ABOUT KAFKA AND REDPANDA. ADD AN EXAMPLE QUERY}
+
+
+\section{Desarrollo del firmware}
+
+\textbf{Explicar como se combinan todas las tecnologias y herramientas en el firmware. basarlo en el stack lwip}
+
+\textbf{Referecia - pagina 43}
+\textit{https://lse-posgrados-files.fi.uba.ar/tesis/LSE-FIUBA-Trabajo-Final-CEIoT-Pedro-Rosito-2021.pdf }
+
+
+\begin{itemize}
+
+  \item based on: \url{https://blog.naver.com/eziya76/221938551688}
+
+  \item nucleo F429ZI kit development
+
+  \item free rtos
+
+  \item tools: cube mx, cube programmer, mosquitto cli
+
+\end{itemize}
+
+
+
+\section{Desarrollo de la API GraphQL}
+
+\textbf{Referencias}
+
+\begin{itemize}
+
+  %https://github.com/Azure-Samples/blockchain/blob/master/blockchain-workbench/rest-api-samples/java/generated/docs/ApplicationsApi.md#applicationDelete
+  
+  \item https://github.com/nandroidj/app-fullstack-base-2021-1c
+    \\ \textit{Detalles de implementación -> Ver los endpoints disponibles}
+
+  %\item https://www.notion.so/briken/KoyweTransaction-8d9ba1eda4664819a30378c3548ebacf?pvs=4
+
+  %\item https://www.notion.so/briken/User-2ad1013d829548d0a7e992e31e53f7df?pvs=4
+
+\end{itemize}
+
+

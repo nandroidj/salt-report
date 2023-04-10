@@ -205,7 +205,7 @@ En esta sección, se aborda la estructura de la aplicación web, incluyendo la o
 
 La estructura de la aplicación se inspira en la herramienta \textit{Create React App} \footnote{\url{https://create-react-app.dev/}}, que postula una estructura de archivos predefinida para crear aplicaciones web con React. En efecto, se plasman un conjunto de convenciones y buenas prácticas que permiten organizar el código de una forma clara y fácilmente escalable.
 
-La organización de archivos, utilizando \texit{Typescript} y \textit{inline JSS}, consta de los siguiente elementos:
+La organización de archivos, utilizando \textit{Typescript} y \textit{inline JSS}, consta de los siguiente elementos:
 
 \begin{itemize}
 
@@ -215,7 +215,7 @@ La organización de archivos, utilizando \texit{Typescript} y \textit{inline JSS
 
     \begin{itemize}
 
-      \item Los archivos de configuración, como \texit{"index.tsx"} y \textit{"App.tsx"}, que se encargan de inicializar la aplicación y definir su estructura básica, utilizando la sintaxis de \textit{Typescript}.
+      \item Los archivos de configuración, como \textit{"index.tsx"} y \textit{"App.tsx"}, que se encargan de inicializar la aplicación y definir su estructura básica, utilizando la sintaxis de \textit{Typescript}.
   
       \item Los componentes de la aplicación, organizados en subdirectorios según su funcionalidad. Cada componente suele estar formado por un archivo \textit{".tsx"} en la que define su lógica y un archivo de extensión \textit{".ts"} que define el procesamiento de la información previo a su renderización.
 
@@ -223,15 +223,16 @@ La organización de archivos, utilizando \texit{Typescript} y \textit{inline JSS
 
     \end{itemize}
 
-  \item La carpeta \texit{"node\_modules"}, que contiene todas las dependencias de la aplicación.
+  \item La carpeta \textit{"node\_modules"}, que contiene todas las dependencias de la aplicación.
 
   \item Los archivos \textit{"package.json"} y \textit{"package-lock.json"}, que definen la configuración y las dependencias del proyecto.
 
-  \item Otros archivos de configuración, como \texit{".gitignore"} o \texit{".env"}, que se utilizan para personalizar la configuración de la aplicación.
+  \item Otros archivos de configuración, como \textit{".gitignore"} o \textit{".env"}, que se utilizan para personalizar la configuración de la aplicación.
 
 \end{itemize}
 
 
+\newpage
 \subsection{Roles}
 
 La aplicación web cuenta con una estructura de roles que determinan los permisos y acciones que los usuarios pueden realizar en la plataforma. En total, se establecen cuatro roles, que se listan a continuación:
@@ -254,30 +255,61 @@ Cada uno de estos roles se diseña para brindar distintos niveles de acceso y co
 \subsection{Modelo}
 
 
-\textbf{ESCRIBIR ACERCA DEL MODELADO DE DATOS EN LA PLATAFORMA WEB}
+\textbf{ESCRIBIR ACERCA DEL MODELADO DE DATOS EN LA PLATAFORMA WEB - Bastian}
 
 
 \subsection{Implementación de la plataforma}
 
-La plataforma consiste en un conjunto de páginas que se desarrollan con la biblioteca \textit{React Router DOM} \footnote{\url{https://reactrouter.com/en/main}}. La misma facilita la navegación y el enrutamiento de la aplicación web de una sola página.
-
-En consecuencia, se presentan las principales páginas de la página web con sus rutas asoaciadas y componentes asociados:
+La plataforma consiste en un conjunto de páginas en las que se acopla la biblioteca \textit{React Router DOM} \footnote{\url{https://reactrouter.com/en/main}}. La misma facilita la navegación y el enrutamiento de la aplicación web de una sola página. Asimismo se encuentran las ventanas emergentes que permiten realizar el alta, la baja y la modificación de cada entidad.
 
 
+\subsubsection{Páginas}
 
-\textit{dashboard, sign in, configuration, entities, trains, subsystems of each train, logs, etc}
+Consecuentemente, se presentan las principales páginas del cliente web con su ruta y una breve descripción asociada.
 
-Login: \textbf{hablar sobre la interacción con jwt} \textit{Referecia - bastian pag 48} \textbf{add figure}
 
-Tabla de trenes+salt: \textbf{add figure}
+\begin{itemize}
 
-Tabla de usuarios: \textbf{add figure}
+  \item Autenticación ("/auth", "/home"):
+      la página de autenticación es el punto de entrada de la plataforma. De esta manera, cuando el usuario completa los formularios de registro y posteriormente de inicio de sesión, interactuando con la biblioteca \textit{JWT}, puede acceder al contenido restante del cliente web.
 
-Dashboard: \textbf{add figure}
+  \item Configuración ("/configuration"):
+    la configuración del sistema permite a los usuarios ajustar las preferencias y opciones de la aplicación. En particular, se ofrece la parametrización de la conexión al broker MQTT para lograr el correcto funcionamiento de la aplicación, ya que permite la comunicación con los dispositivos que se encuentran en las formaciones ferroviarias. Por otro lado, las acciones que se encuentran disponibles en esta página se encuentran sujetas al rol de cada usuario, lo que garantiza un acceso seguro y restringido a funciones específicas de la aplicación.
+
+  \item Áreas ("/areas", "/home"):
+    Trenes Argentinos es una empresa que cuenta con tres áreas principales: cargas, infraestructura y operaciones, cada una de las cuales desempeña un papel importante en la gestión de la empresa. Desde el cliente web, los usuarios pueden acceder a cada una de estas áreas si tienen el rol correspondiente, lo que les permite realizar tareas específicas y gestionar la información relacionada con su área. Esto garantiza un acceso restringido y seguro a la información de la empresa.
+
+  \item Usuarios ("/users"):
+    contiene a todos los usuarios del ente permitiendo a los supervisores o al súper usuario tener un registro completo de los usuarios registrados y gestionar su información. Desde esta página, se puede acceder al perfile de cada usuario que se detalla a continuación. 
+
+  \item Perfile del usuario ("/user:user-id")
+    en este componente se visualizan los datos personales de cada usuarios y los eventos en los que se ve involucrado, como su ingreso en la plataforma y las acciones vinculadas a un SAL/T. 
+
+  \item Dispositivos ("/devices")
+    es una tabla que expone aa los dispositivos registrados en el sistema y su relación con las entidades y formaciones ferroviarias correspondientes. Desde esta tabla, el supervisor puede realizar el alta, baja y modificación de los dispositivos.
+
+  \item Panel de control del dispositivo ("/control-panel:device-id")
+    es una herramienta esencial en la gestión ferroviaria que dispone de múltiples funciones. Entre ellas, se encuentra un tacómetro que permite visualizar la velocidad de la formación ferroviaria en tiempo real a partir de tres fuentes de información, un componente para habilitar o deshabilitar el corte de tracción y el freno de emergencia, y una sección para visualizar los eventos al tópico en el que se encuentra suscrito vía broker MQTT.
+
+
+  \item Subsistemas de falla ("/failure-subsystems:device-id")
+    desde la página del panel de control, los usuarios pueden acceder fácilmente a la página de configuración de subsistemas de falla de cada tren. Esta sección es esencial para observar los sistemas asociados en caso de ocurrir una falla y llegado el caso una posible reconfiguración.
+
+  \item Eventos ("/events:device-id")
+    en caso de seleccionar el botón para expandir la fracción de página destinada a los eventos mqtt que se encuentran en el panel de control, se exhiben un listado más extenso de los eventos en tiempo real y con información más detallada. Esta funcionalidad permite una mayor capacidad de análisis y monitoreo de los eventos relacionados con la gestión ferroviaria.
+
+
+\end{itemize}
+
+
+\subsubsection{Ventanas emergentes}
+
+Las vetanas emergentes se emplean para realizar el alta, baja y modificación de las entidades propuestas; como así también el modal correspondiente al igreso de contraseña de cada usuario con el que se cumple un mínimo grado de seguridad por cada acción que se realiza. 
+
 
 Modales: \textit{crear: usuario, tren, dispositivo ; configuracion: sub sistemas de seguridad, etc}
 
-
+modal de ingresar contraseña al realizar una acción
 
 
 %------------------------------------------------------------------------
@@ -363,5 +395,4 @@ A partir del uso de archivo docker-compose, que se ejecuta en un entorno Docker,
   %\item https://www.notion.so/briken/User-2ad1013d829548d0a7e992e31e53f7df?pvs=4
 
 \end{itemize}
-
 
