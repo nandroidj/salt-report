@@ -19,7 +19,7 @@
 
 % Introducción
 
-En este capítulo se presentará una breve introducción sobre la inserción de la Internet de las cosas (\textit{IoT}) \footnote{\url{https://www.investopedia.com/terms/i/internet-things.asp}} en el ámbito ferroviario, abarcando las motivaciones que llevaron a la realización de este trabajo y el estado del arte en cuanto a esta temática. Además, se establecerán los alcances y objetivos del trabajo, los cuales se enfocan en diseñar e implementar un sistema IoT que permita monitorear y controlar los componentes de una formación ferroviaria, con el fin de mejorar la eficiencia y seguridad en el transporte ferroviario.
+En este capítulo se presenta una breve descripción sobre la inserción de la Internet de las cosas (\textit{IoT}) \citep{iot} en el ámbito ferroviario, abarcando las motivaciones que llevaron a la realización de este trabajo, el estado del arte en cuanto a esta temática y además, los alcances y objetivos del trabajo.
 
 
 %----------------------------------------------------------------------------------------
@@ -45,22 +45,34 @@ En el sector ferroviario, la IoT ha demostrado ser una tecnología clave para me
 
 El sistema ferroviario de la República Argentina cuenta con una gran cantidad de formaciones ferroviarias en las que se encuentran diferentes sistemas de seguridad a bordo. Estos equipos se encargan de supervisar el correcto funcionamiento de los subsistemas críticos. Ante una falla en uno de los subsistemas, una formación ferroviaria se detiene inmediatamente por la activación automática de las señales de corte de tracción (\textit{CT}) y freno de emergencia (\textit{FE}). En esta situación, el conductor debe llevar la formación a un lugar seguro para que los pasajeros puedan descender y, posteriormente, trasladarla a un taller para que pueda ser reparada.
 
-En efecto, por parte de \textit{CONICET-GICSAFe} \citep{gicsafe} para la empresa Trenes Argentinos \citep{trenes-argentinos}, se propone desarrollar una central operativa tal que se puede administrar y configurar de forma remota los dispositivos de supervisión de seguridad de cada formación ferroviaria, la visualización de los diferentes parámetros de interés involucrados por las personas asignadas dentro de una entidad y de este modo sea posible optimizar la toma de decisiones.
+% LA IDEA ES QUE LOS SIGUIENTES 3 PARRAFOS QUEDEN EN LA SECCION 3
+El \textit{SAL/T}, según sus siglas, Sistema de Aislamiento Limitado y Total [1], es un dispositivo del cual se cuenta con una primera versión prototipada; que se presenta como solución a las contingencias descritas anteriormente. De esta manera, el maquinista de una formación ferroviaria cunta con la posibilidad de activar y desactivar el modo aislado limitado. En este modo, el equipo permite la circulación de la formación al desactivar las señales de corte de tracción y freno de emergencia generadas por los subsistemas críticos. Para que esta operación se complete de forma segura, se debe monitorear la velocidad de la formación tal que seaposible garantizar que no se supere cierto valor máximo.
 
+A partir del desarrollo previo del prototipo, se presentan los avances en la implementación de una central operativa que centraliza los dispositivos \textit{SAL/T} para su respectiva administración, configuración y monitoreo en tiempo real de la información recibida y transmitida desde una plataforma digital. El proyecto se desarrolla por \textit{CONICET-GICSAFe} \citep{gicsafe} para la empresa Trenes Argentinos \citep{trenes-argentinos}.
+
+Los subsistemas asociados al \textit{SAL/T}, como la seguridad de puertas, el sistema de hombre vivo y la protección de coche a la deriva, son críticos debido a que, en caso de fallar, pueden ocasionar lesiones o muertes de personas e incluso generar pérdidas materiales.
+
+La central operativa permite la administración y configuración en forma remota de los dispositivos de supervisión de seguridad de cada formación ferroviaria, la visualización de los diferentes parámetros de interés involucrados por las personas asignadas dentro de una entidad y de este modo es posible optimizar la toma
+de decisiones.
+
+
+
+%En efecto, se propone desarrollar una central operativa, por parte de \textit{CONICET-GICSAFe} \citep{gicsafe} para la empresa Trenes Argentinos \citep{trenes-argentinos}, tal que se puede administrar y configurar de forma remota los dispositivos de supervisión de seguridad de cada formación ferroviaria, la visualización de los diferentes parámetros de interés involucrados por las personas asignadas dentro de una entidad y de este modo sea posible optimizar la toma de decisiones.
+%
 
 \section{Estado del arte}
 
-A partir del análisis en las últimas tendencias referidas a la Central Operativa \textit{SAL/T}, se listan aquellas herramientas, de gestión y control de dispositivos de seguridad en el sector ferroviario, que presentan características similares al producto propuesto,
+A partir del análisis en las últimas tendencias referidas a la central operativa \textit{SAL/T}, se listan aquellas herramientas, de gestión y control de dispositivos de seguridad en el sector ferroviario, que presentan características similares al producto propuesto:
 
 \begin{enumerate}
 
-  \item \textit{Indra}\footnote{url{https://www.indracompany.com}}: ofrece una solución integral de seguridad para el sector ferroviario, que incluye una plataforma de gestión centralizada y un sistema de supervisión remota de dispositivos de seguridad.
+  \item \textit{Indra}\citep{indra}: ofrece una solución integral de seguridad para el sector ferroviario, que incluye una plataforma de gestión centralizada y un sistema de supervisión remota de dispositivos de seguridad.
 
-  \item \textit{Thales Group}\footnote{url{https://www.thalesgroup.com}}: desarrolla soluciones de seguridad para el sector ferroviario, que incluyen una aplicación de gestión y control centralizada para supervisar y configurar dispositivos de seguridad de forma remota.
+  \item \textit{Thales Group}\citep{thales}: desarrolla soluciones de seguridad para el sector ferroviario, que incluyen una aplicación de gestión y control centralizada para supervisar y configurar dispositivos de seguridad de forma remota.
 
-  \item \textit{Alstom}\footnote{url{https://www.alstom.com/}}: ofrece una plataforma de gestión y control para el sector ferroviario, que permite la supervisión y configuración de dispositivos de seguridad de forma remota, así como el análisis en tiempo real de los datos recopilados por estos dispositivos.
+  \item \textit{Alstom}\citep{alstom}: ofrece una plataforma de gestión y control para el sector ferroviario, que permite la supervisión y configuración de dispositivos de seguridad de forma remota, así como el análisis en tiempo real de los datos recopilados por estos dispositivos.
 
-  \item \text{Siemens Mobility}\footnote{url{https://www.mobility.siemens.com/}}: ofrece una solución de gestión y control para el sector ferroviario, que incluye una aplicación web de central operativa para supervisar y configurar dispositivos de seguridad de forma remota, así como un sistema de análisis de datos en tiempo real.
+\item \textit{Siemens Mobility}\citep{siemens}: ofrece una solución de gestión y control para el sector ferroviario, que incluye una aplicación web de central operativa para supervisar y configurar dispositivos de seguridad de forma remota, así como un sistema de análisis de datos en tiempo real.
 
 \end{enumerate}
 
@@ -71,10 +83,11 @@ A partir del análisis en las últimas tendencias referidas a la Central Operati
 El sistema resultante de este trabajo se encuentra destinado al desarrollo del software para una central operativa que permite administrar y configurar de forma remota dispositivos de supervisión de seguridad de formaciones ferroviarias denominados \textit{SAL/T} (Sistema de Aislamiento Limitado/Total). 
 
 
-El alcance del proyecto comprende los siguientes puntos,
+El alcance del trabajo comprende los siguientes puntos:
 
 \begin{itemize}
-	\item Servicio de monitoreo y control: visualizar en tiempo real los datos recibidos y enviar comandos de control a los dispositivos activos. 
+	
+    \item Servicio de monitoreo y control: visualizar en tiempo real los datos recibidos y enviar comandos de control a los dispositivos activos. 
 
     \item Gestión de configuración de dispositivos: visualizar y modificar los parámetros configurables de los dispositivos. 
 
@@ -84,6 +97,10 @@ El alcance del proyecto comprende los siguientes puntos,
 
     \item Gestión de usuarios y perfiles: administrar roles y permisos de acceso.
 
-    \item Realizar la migración de un microcontrolador de la familia Cortex tipo M \footnote{\url{https://developer.arm.com/Processors/Cortex-M4}} a uno de la misa familia que disponga de características destinadas a la seguridad funcional del sistema. 
+    \item Realizar la migración de un microcontrolador de la familia \textit{Cortex} tipo M \citep{cortex} a uno de la misa familia que disponga de características destinadas a la seguridad funcional del sistema. 
+
 \end{itemize}
+
+
+
 
